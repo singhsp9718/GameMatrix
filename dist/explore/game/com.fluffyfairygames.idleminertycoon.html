@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Idle Miner Tycoon: Gold Games - GameHub Home</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background-color: #f6f8fa; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; color: #333; line-height: 1.5; padding: 0; overflow-x: hidden; }
+        
+        header { background-color: #00875a; padding: 12px 0; border-bottom: 1px solid rgba(0,0,0,0.1); width: 100%; }
+        .header-inner { max-width: 960px; margin: 0 auto; padding: 0 15px; }
+        .nav-back { color: #fff; text-decoration: none; font-weight: bold; font-size: 15px; display: inline-flex; align-items: center; gap: 6px; }
+        
+        .wrapper { max-width: 960px; margin: 25px auto; display: grid; grid-template-columns: 1fr 280px; gap: 24px; padding: 0 15px; width: 100%; }
+        @media(max-width: 850px) { .wrapper { grid-template-columns: 1fr; margin: 15px auto; } }
+        
+        .main-content { background: #fff; border: 1px solid #e1e4e8; border-radius: 4px; padding: 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); overflow: hidden; width: 100%; }
+        @media(max-width: 480px) { .main-content { padding: 16px; } }
+        
+        .app-header { display: flex; gap: 20px; align-items: flex-start; margin-bottom: 25px; flex-wrap: wrap; }
+        .app-icon { width: 96px; height: 96px; border-radius: 18px; object-fit: cover; border: 1px solid #eaeaea; flex-shrink: 0; }
+        .app-details { flex: 1; min-width: 200px; }
+        .app-details h1 { font-size: 24px; font-weight: 700; color: #111; margin-bottom: 4px; word-break: break-word; }
+        .app-meta-sub { font-size: 13px; color: #666; display: flex; align-items: center; gap: 10px; margin-bottom: 6px; flex-wrap: wrap; }
+        
+        .info-table { width: 100%; border-collapse: collapse; margin-bottom: 25px; font-size: 13px; }
+        .info-table tr { border-bottom: 1px solid #f1f1f1; }
+        .info-table td { padding: 10px 4px; }
+        .info-table td.label { color: #666; width: 120px; }
+        .info-table td.value { color: #111; font-weight: 500; word-break: break-word; }
+        
+        .btn-row { display: flex; gap: 12px; margin-bottom: 30px; flex-wrap: wrap; }
+        .btn { flex: 1; min-width: 140px; text-align: center; padding: 11px; border-radius: 20px; font-weight: bold; font-size: 13px; text-decoration: none; transition: background 0.1s; }
+        .btn-appstore { background-color: #00da77; color: #fff; }
+        .btn-appstore:hover { background-color: #00be68; }
+        .btn-googleplay { background-color: #00da77; color: #fff; }
+        .btn-googleplay:hover { background-color: #00be68; }
+        
+        .section-title { font-size: 18px; font-weight: bold; color: #222; margin-bottom: 14px; border-bottom: 1px solid #e1e4e8; padding-bottom: 6px; }
+        .editor-content { font-size: 13px; color: #444; margin-bottom: 30px; line-height: 1.6; text-align: justify; }
+        
+        /* Fixed Contained Screenshot Container without local scrollbar bars */
+        .slider-frame { position: relative; margin-bottom: 30px; display: flex; align-items: center; max-width: 100%; }
+        .screenshots-container { display: flex; gap: 10px; overflow-x: hidden; scroll-behavior: smooth; width: 100%; -webkit-overflow-scrolling: touch; overflow: -moz-scrollbars-none; ms-overflow-style: none; }
+        .screenshots-container::-webkit-scrollbar { display: none !important; width: 0 !important; height: 0 !important; }
+        .screenshots-container img { height: 160px; width: auto; object-fit: contain; border-radius: 6px; border: 1px solid #e1e4e8; flex-shrink: 0; }
+        .slider-btn { position: absolute; width: 32px; height: 32px; background: rgba(0, 135, 90, 0.9); color: #fff; border: none; border-radius: 50%; font-size: 16px; cursor: pointer; display: flex; justify-content: center; align-items: center; z-index: 10; font-weight: bold; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+        .slider-btn.left-btn { left: 4px; }
+        .slider-btn.right-btn { right: 4px; }
+        
+        .featured-app-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 16px; margin-bottom: 35px; width: 100%; }
+        .feat-card { display: flex; flex-direction: column; align-items: center; text-align: center; border: 1px solid #e2e8f0; padding: 16px 10px; border-radius: 14px !important; background: #fff; text-decoration: none; justify-content: center; box-shadow: 0 1px 2px rgba(0,0,0,0.02); transition: all 0.2s ease; }
+        .feat-card:hover { transform: translateY(-2px); border-color: #cbd5e1; }
+        .feat-card img { width: 56px; height: 56px; border-radius: 12px !important; object-fit: cover; margin-bottom: 12px; flex-shrink: 0; }
+        .feat-title { font-size: 12px; font-weight: 500; color: #334155; text-decoration: none; width: 100%; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block; padding: 0 2px; }
+        
+        .rating-summary-wrapper { display: flex; align-items: center; gap: 30px; margin-bottom: 30px; background: #fcfcfc; padding: 16px; border: 1px solid #e1e4e8; border-radius: 4px; flex-wrap: wrap; }
+        .rating-giant { text-align: center; width: 100px; margin: 0 auto; }
+        .rating-giant h2 { font-size: 42px; font-weight: 700; color: #111; line-height: 1; }
+        .rating-giant .stars { color: #00da77; font-size: 14px; margin: 4px 0; }
+        .rating-giant .total { font-size: 11px; color: #666; white-space: nowrap; }
+        .bar-stack { flex: 1; display: flex; flex-direction: column; gap: 5px; min-width: 200px; width: 100%; }
+        .bar-row { display: flex; align-items: center; gap: 10px; font-size: 11px; color: #555; }
+        .bar-row span { width: 10px; font-weight: bold; text-align: right; }
+        .bar-bg { flex: 1; height: 8px; background: #eee; border-radius: 4px; overflow: hidden; }
+        .bar-fill { height: 100%; background: #00875a; border-radius: 4px; }
+        
+        .review-box { border-left: 3px solid #00875a; background: #fafafa; padding: 12px 16px; margin-bottom: 12px; font-size: 12.5px; border-bottom: 1px solid #e1e4e8; border-radius: 0 4px 4px 0; width: 100%; }
+        .review-header { display: flex; justify-content: space-between; margin-bottom: 4px; font-weight: bold; color: #222; flex-wrap: wrap; gap: 5px; }
+        .review-body { color: #555; line-height: 1.4; word-break: break-word; }
+        
+        .sidebar-container { background: #fff; border: 1px solid #e1e4e8; border-radius: 4px; padding: 16px; height: fit-content; width: 100%; }
+        .sidebar-container h2 { font-size: 13px; font-weight: 700; color: #111; margin-bottom: 15px; border-bottom: 2px solid #00875a; padding-bottom: 4px; text-transform: uppercase; letter-spacing: 0.3px; }
+        .sidebar-item { display: flex; gap: 12px; align-items: center; margin-bottom: 12px; border-bottom: 1px solid #f9f9f9; padding-bottom: 12px; }
+        .sidebar-item img { width: 40px; height: 40px; border-radius: 8px; border: 1px solid #eee; object-fit: cover; flex-shrink: 0; }
+        .sidebar-info { flex: 1; overflow: hidden; }
+        .sidebar-title { font-size: 12px; font-weight: 600; color: #333; text-decoration: none; display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .sidebar-title:hover { color: #00875a; }
+        .sidebar-rating { font-size: 11px; color: #e0a100; font-weight: bold; margin-top: 1px; }
+        
+        footer { text-align: center; font-size: 12px; color: #777; margin-top: 40px; border-top: 1px solid #e1e4e8; padding: 20px; background: #fff; display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; font-weight: 500; }
+        footer a { color: #00875a; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-inner">
+            <a href="../../index.html" class="nav-back">← GameHub Home</a>
+        </div>
+    </header>
+    
+    <div class="wrapper">
+        <main class="main-content">
+            <section class="app-header">
+                <img class="app-icon" src="https://play-lh.googleusercontent.com/T3QfCDeMm9yK3r1I0f82xTrsZsRv97L5BYpwUTh8_Y8E53uzi3WVUZgVkBnJ7LKP127GXjnvA8DXaQiXxu1s" alt="Icon" />
+                <div class="app-details">
+                    <h1>Idle Miner Tycoon: Gold Games</h1>
+                    <div class="app-meta-sub">
+                        <span>🎮 Simulation</span> | <span>🤖 Android</span>
+                    </div>
+                    <div class="star-rating-badge">⭐ 4.5 / 5</div>
+                </div>
+            </section>
+            
+            <table class="info-table">
+                <tr><td class="label">Platform</td><td class="value">🤖 Android / 🍏 iOS</td></tr>
+                <tr><td class="label">Price</td><td class="value">Free</td></tr>
+                <tr><td class="label">Installs</td><td class="value">100,000,000+</td></tr>
+                <tr><td class="label">Updated</td><td class="value">Jul 2, 2026</td></tr>
+                <tr><td class="label">Size</td><td class="value">Varies with device</td></tr>
+            </table>
+            
+            <div class="btn-row">
+                <a href="https://apps.apple.com/us/search?term=Idle%20Miner%20Tycoon%3A%20Gold%20Games" target="_blank" rel="noopener" class="btn btn-appstore">App Store</a>
+                <a href="https://play.google.com/store/apps/details?id=com.fluffyfairygames.idleminertycoon&hl=en&gl=us" target="_blank" rel="noopener" class="btn btn-googleplay">Google Play</a>
+            </div>
+            
+            <h2 class="section-title">Editor's Review</h2>
+            <div class="editor-content">
+                <p style="margin-bottom:10px;">Join hundreds of millions of players for FREE and start the fun adventure now! Team up with your friends, climb the leaderboards, gather in clans, collect hats, take on challenges, and play fun events in all-new game modes. Experience the dynamic world of Simulation with Idle Miner Tycoon: Gold Games as it delivers an evolving structure built for pure entertainment.</p>
+                <p style="margin-bottom:10px;">Architecturally, the app focuses on several key layers. Notably, Are you a true gold miner. Furthermore, user patterns show that Join Business Empire in Idle Miner Tycoon, the leading business simulation trusted by millions.</p>
+                <p style="font-weight:600; color:#111; margin-top:15px;">Overall, Idle Miner Tycoon: Gold Games stands out as a highly polished release in the Simulation domain. By keeping system resource usage minimal and scaling execution loops flawlessly across varying chipsets, it is a highly recommended deployment node for your daily gaming framework.</p>
+            </div>
+            
+            <h2 class="section-title">Screenshots</h2>
+            <div class="slider-frame">
+                <button class="slider-btn left-btn" onclick="document.getElementById('scrContainer').scrollLeft -= 240;">&lt;</button>
+                <div class="screenshots-container" id="scrContainer">
+                    <img src="https://play-lh.googleusercontent.com/hjmWN-1SuhTj_35bIBYGmBZ4YSFF3fg1XIlNhcY_VhElYgrEHaDTDnIwzwaZpk6J8xx3tN5WMcFBFmx5_EK5" alt="Screenshot" /><img src="https://play-lh.googleusercontent.com/69byCRuYSHGsrCB3cQwKTyWTZKs-c-qGgkj1_kD-LK9MR8ec07M7E71HCG2as2-skP_l0dw8Yneb-bxomFtO3oA" alt="Screenshot" /><img src="https://play-lh.googleusercontent.com/QzeuE93wkPUsTXu1S2qRd3lwW95aNAagyU68yuDE6O0En5Yj7KFfgKPiDtaDW5676q-1nv2-UgD_Wy8iIWBX9s4" alt="Screenshot" /><img src="https://play-lh.googleusercontent.com/5dkvF6C7MWYgfRq-XCKXSmTE-pXMnGuSMf6qjBmSz5IwM_Gr_r7uQubtJNq370gsLjV_ZrgB_EpZKxDejneDFg" alt="Screenshot" /><img src="https://play-lh.googleusercontent.com/hjmWN-1SuhTj_35bIBYGmBZ4YSFF3fg1XIlNhcY_VhElYgrEHaDTDnIwzwaZpk6J8xx3tN5WMcFBFmx5_EK5" alt="Screenshot" />
+                </div>
+                <button class="slider-btn right-btn" onclick="document.getElementById('scrContainer').scrollLeft += 240;">&gt;</button>
+            </div>
+            
+            <h2 class="section-title">Featured Apps</h2>
+            <div class="featured-app-grid">
+                
+        <a href="../../explore/game/find.out.hidden.objects.seek.puzzle.games.free.html" class="feat-card">
+            <img src="https://play-lh.googleusercontent.com/gls8zJKZGTubhrZlWO4SyPHN4N4DRFud7yuspK5-QRtLbiu9UxkaOwa1dIwgz61S2nm1zIBZRNtXCrohZYZEJg" alt="App Icon Layout" />
+            <div class="feat-title">Find It Out® - Hidden Object</div>
+        </a>
+        <a href="../../explore/game/com.block.juggle.html" class="feat-card">
+            <img src="https://play-lh.googleusercontent.com/5FLR-EBlfNvoV9ydZkOMDqRF10nV64XcKdZzW_oQzmz2e8Me9PS5Zncnvviki0J3XumjO2a_lg6_IdwOqwnV" alt="App Icon Layout" />
+            <div class="feat-title">Block Blast!</div>
+        </a>
+        <a href="../../explore/game/com.gamovation.tileclub.html" class="feat-card">
+            <img src="https://play-lh.googleusercontent.com/1usfjsEcGLj5t00kTHmqUuLtrVtDVbuBIECR-1kbjhJyv_n_1omuFYnzH7EkdKJh6Pv4IvCQX4J1MWKYbXn0BlU" alt="App Icon Layout" />
+            <div class="feat-title">Tile Club - Match Puzzle Games</div>
+        </a>
+        <a href="../../explore/game/com.merge.match3mystery.html" class="feat-card">
+            <img src="https://play-lh.googleusercontent.com/g8z1-NZNcXr1XDSVbMgJGoi5gEwUX6DNWfHUiWjF1grEEd1U2dZJla_UINWmLvwxxQrW0F0AO1PJN5LcDnA-kUg" alt="App Icon Layout" />
+            <div class="feat-title">Mistfall Match: Design & Blast</div>
+        </a>
+        <a href="../../explore/game/com.maxgames.stickwarlegacy.html" class="feat-card">
+            <img src="https://play-lh.googleusercontent.com/bTbNEd9ss0lqbNBWO0me6kJNnfvu0CNd2nNHdiYGym5pZvxCFMy2nPYTBsR_4mVcXgEBN2C6yvksSBMq1wmyyA" alt="App Icon Layout" />
+            <div class="feat-title">Stick War: Legacy</div>
+        </a>
+        <a href="../../explore/game/com.vitastudio.mahjong.html" class="feat-card">
+            <img src="https://play-lh.googleusercontent.com/ioTu_sdNBDPnNsW2I-fHJgxsfOVmQr7wbtJOELatIcpPdToqSnmxsYTa3U7RdXrE1QSp1RBBscN6aNYSnkc" alt="App Icon Layout" />
+            <div class="feat-title">Vita Mahjong</div>
+        </a>
+        <a href="../../explore/game/com.onemb.shadowborn.html" class="feat-card">
+            <img src="https://play-lh.googleusercontent.com/M_WIs6F9Sho0PgSZP79e6bmOp4cJKrx41hFeEfwbgyEnEfMF9aZfARF4WZhHss52lA55lwhcETXlyMIiZDZDXVs" alt="App Icon Layout" />
+            <div class="feat-title">Shadowborn</div>
+        </a>
+        <a href="../../explore/game/com.easybrain.jigsaw.puzzles.html" class="feat-card">
+            <img src="https://play-lh.googleusercontent.com/3wjx4KDmpix12Xo15lE2ow-YazY6o1UH85JjvaTsYk8IbIPusbEl3RkKzDGUdZ_grWlqz8gNgDSXOg9TTOx6" alt="App Icon Layout" />
+            <div class="feat-title">Jigsaw Puzzles - Puzzle Games</div>
+        </a>
+        <a href="../../explore/game/com.easybrain.art.puzzle.html" class="feat-card">
+            <img src="https://play-lh.googleusercontent.com/lvkJYolp_qMHWFdjfucZdYYzntA_XCsm4hsWeXGYm_48bmWB_4FNwwCMVJTd-0jgYF4siruXy7poi2E2BxQScaw" alt="App Icon Layout" />
+            <div class="feat-title">Art Puzzle - Puzzle Games</div>
+        </a>
+        <a href="../../explore/game/com.bigbluebubble.singingmonsters.full.html" class="feat-card">
+            <img src="https://play-lh.googleusercontent.com/KZbIal56rh5WZsua1sPp73gm4GmxD-njM6Dnds5bWrHSqS0cZLaB74RxiLbdEg8yOBbiaiKJdiSnvc--5dWiMw" alt="App Icon Layout" />
+            <div class="feat-title">My Singing Monsters</div>
+        </a>
+            </div>
+            
+            <h2 class="section-title">Ratings and reviews →</h2>
+            <div class="rating-summary-wrapper">
+                <div class="rating-giant">
+                    <h2>4.5</h2>
+                    <div class="stars">🟢🟢🟢🟢🟢</div>
+                    <div class="total">100,000,000+ reviews</div>
+                </div>
+                <div class="bar-stack">
+                    <div class="bar-row"><span>5</span><div class="bar-bg"><div class="bar-fill" style="width: 70%;"></div></div></div>
+                    <div class="bar-row"><span>4</span><div class="bar-bg"><div class="bar-fill" style="width: 19%;"></div></div></div>
+                    <div class="bar-row"><span>3</span><div class="bar-bg"><div class="bar-fill" style="width: 7%;"></div></div></div>
+                    <div class="bar-row"><span>2</span><div class="bar-bg"><div class="bar-fill" style="width: 1%;"></div></div></div>
+                    <div class="bar-row"><span>1</span><div class="bar-bg"><div class="bar-fill" style="width: 2%;"></div></div></div>
+                </div>
+            </div>
+            
+            <div class="reviews-list">
+                
+        <div class="review-box">
+            <div class="review-header"><span class="user-name">👤 RainsIthefan Gamerz</span><span class="user-rating">⭐ 4.0</span></div>
+            <p class="review-body">Outstanding progression systems and highly optimized operational control performance structures.</p>
+        </div>
+        <div class="review-box">
+            <div class="review-header"><span class="user-name">👤 Selal Coklat</span><span class="user-rating">⭐ 5.0</span></div>
+            <p class="review-body">Clean processing loops and highly dynamic execution grids across variable system device profiles.</p>
+        </div>
+            </div>
+        </main>
+        
+        <aside class="sidebar-container">
+            <h2>Top Games</h2>
+            <div class="sidebar-list">
+                
+        <div class="sidebar-item">
+            <img src="https://play-lh.googleusercontent.com/gls8zJKZGTubhrZlWO4SyPHN4N4DRFud7yuspK5-QRtLbiu9UxkaOwa1dIwgz61S2nm1zIBZRNtXCrohZYZEJg" alt="Find It Out® - Hidden Object" />
+            <div class="sidebar-info">
+                <a href="../../explore/game/find.out.hidden.objects.seek.puzzle.games.free.html" class="sidebar-title">Find It Out® - Hidden Object</a>
+                <div class="sidebar-rating">⭐ 4.9</div>
+            </div>
+        </div>
+        <div class="sidebar-item">
+            <img src="https://play-lh.googleusercontent.com/5FLR-EBlfNvoV9ydZkOMDqRF10nV64XcKdZzW_oQzmz2e8Me9PS5Zncnvviki0J3XumjO2a_lg6_IdwOqwnV" alt="Block Blast!" />
+            <div class="sidebar-info">
+                <a href="../../explore/game/com.block.juggle.html" class="sidebar-title">Block Blast!</a>
+                <div class="sidebar-rating">⭐ 4.8</div>
+            </div>
+        </div>
+        <div class="sidebar-item">
+            <img src="https://play-lh.googleusercontent.com/1usfjsEcGLj5t00kTHmqUuLtrVtDVbuBIECR-1kbjhJyv_n_1omuFYnzH7EkdKJh6Pv4IvCQX4J1MWKYbXn0BlU" alt="Tile Club - Match Puzzle Games" />
+            <div class="sidebar-info">
+                <a href="../../explore/game/com.gamovation.tileclub.html" class="sidebar-title">Tile Club - Match Puzzle Games</a>
+                <div class="sidebar-rating">⭐ 4.8</div>
+            </div>
+        </div>
+        <div class="sidebar-item">
+            <img src="https://play-lh.googleusercontent.com/g8z1-NZNcXr1XDSVbMgJGoi5gEwUX6DNWfHUiWjF1grEEd1U2dZJla_UINWmLvwxxQrW0F0AO1PJN5LcDnA-kUg" alt="Mistfall Match: Design & Blast" />
+            <div class="sidebar-info">
+                <a href="../../explore/game/com.merge.match3mystery.html" class="sidebar-title">Mistfall Match: Design & Blast</a>
+                <div class="sidebar-rating">⭐ 4.8</div>
+            </div>
+        </div>
+        <div class="sidebar-item">
+            <img src="https://play-lh.googleusercontent.com/bTbNEd9ss0lqbNBWO0me6kJNnfvu0CNd2nNHdiYGym5pZvxCFMy2nPYTBsR_4mVcXgEBN2C6yvksSBMq1wmyyA" alt="Stick War: Legacy" />
+            <div class="sidebar-info">
+                <a href="../../explore/game/com.maxgames.stickwarlegacy.html" class="sidebar-title">Stick War: Legacy</a>
+                <div class="sidebar-rating">⭐ 4.8</div>
+            </div>
+        </div>
+        <div class="sidebar-item">
+            <img src="https://play-lh.googleusercontent.com/ioTu_sdNBDPnNsW2I-fHJgxsfOVmQr7wbtJOELatIcpPdToqSnmxsYTa3U7RdXrE1QSp1RBBscN6aNYSnkc" alt="Vita Mahjong" />
+            <div class="sidebar-info">
+                <a href="../../explore/game/com.vitastudio.mahjong.html" class="sidebar-title">Vita Mahjong</a>
+                <div class="sidebar-rating">⭐ 4.8</div>
+            </div>
+        </div>
+        <div class="sidebar-item">
+            <img src="https://play-lh.googleusercontent.com/M_WIs6F9Sho0PgSZP79e6bmOp4cJKrx41hFeEfwbgyEnEfMF9aZfARF4WZhHss52lA55lwhcETXlyMIiZDZDXVs" alt="Shadowborn" />
+            <div class="sidebar-info">
+                <a href="../../explore/game/com.onemb.shadowborn.html" class="sidebar-title">Shadowborn</a>
+                <div class="sidebar-rating">⭐ 4.8</div>
+            </div>
+        </div>
+        <div class="sidebar-item">
+            <img src="https://play-lh.googleusercontent.com/3wjx4KDmpix12Xo15lE2ow-YazY6o1UH85JjvaTsYk8IbIPusbEl3RkKzDGUdZ_grWlqz8gNgDSXOg9TTOx6" alt="Jigsaw Puzzles - Puzzle Games" />
+            <div class="sidebar-info">
+                <a href="../../explore/game/com.easybrain.jigsaw.puzzles.html" class="sidebar-title">Jigsaw Puzzles - Puzzle Games</a>
+                <div class="sidebar-rating">⭐ 4.8</div>
+            </div>
+        </div>
+        <div class="sidebar-item">
+            <img src="https://play-lh.googleusercontent.com/lvkJYolp_qMHWFdjfucZdYYzntA_XCsm4hsWeXGYm_48bmWB_4FNwwCMVJTd-0jgYF4siruXy7poi2E2BxQScaw" alt="Art Puzzle - Puzzle Games" />
+            <div class="sidebar-info">
+                <a href="../../explore/game/com.easybrain.art.puzzle.html" class="sidebar-title">Art Puzzle - Puzzle Games</a>
+                <div class="sidebar-rating">⭐ 4.8</div>
+            </div>
+        </div>
+        <div class="sidebar-item">
+            <img src="https://play-lh.googleusercontent.com/KZbIal56rh5WZsua1sPp73gm4GmxD-njM6Dnds5bWrHSqS0cZLaB74RxiLbdEg8yOBbiaiKJdiSnvc--5dWiMw" alt="My Singing Monsters" />
+            <div class="sidebar-info">
+                <a href="../../explore/game/com.bigbluebubble.singingmonsters.full.html" class="sidebar-title">My Singing Monsters</a>
+                <div class="sidebar-rating">⭐ 4.8</div>
+            </div>
+        </div>
+            </div>
+        </aside>
+    </div>
+    
+    <footer>
+        <span>&copy; 2026 FavNinja.com</span>
+        <a href="#">Contact</a> | <a href="#">Privacy Policy</a> | <a href="#">Terms of Services</a>
+    </footer>
+</body>
+</html>
