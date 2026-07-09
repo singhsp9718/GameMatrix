@@ -6,7 +6,7 @@
         <changefreq>daily</changefreq>
     </url>
     <url>
-        <loc>https://favninja.com/explore/game/com.vitastudio.mahjongwood.html</loc>
+        <loc>https://favninja.com/explore/game/com.mesa28native.html</loc>
         <priority>0.8</priority>
         <changefreq>weekly</changefreq>
     </url>
@@ -136,11 +136,6 @@
         <changefreq>weekly</changefreq>
     </url>
     <url>
-        <loc>https://favninja.com/explore/game/com.whaleapp.mafia.go.dice.master.html</loc>
-        <priority>0.8</priority>
-        <changefreq>weekly</changefreq>
-    </url>
-    <url>
         <loc>https://favninja.com/explore/game/com.greencod.pinballdeluxereloaded.html</loc>
         <priority>0.8</priority>
         <changefreq>weekly</changefreq>
@@ -161,6 +156,11 @@
         <changefreq>weekly</changefreq>
     </url>
     <url>
+        <loc>https://favninja.com/explore/game/com.whaleapp.mafia.go.dice.master.html</loc>
+        <priority>0.8</priority>
+        <changefreq>weekly</changefreq>
+    </url>
+    <url>
         <loc>https://favninja.com/explore/game/com.movile.playkids.pkxd.html</loc>
         <priority>0.8</priority>
         <changefreq>weekly</changefreq>
@@ -177,11 +177,6 @@
     </url>
     <url>
         <loc>https://favninja.com/explore/game/com.starblaster.atwo.epl.gp.html</loc>
-        <priority>0.8</priority>
-        <changefreq>weekly</changefreq>
-    </url>
-    <url>
-        <loc>https://favninja.com/explore/game/net.peakgames.match.html</loc>
         <priority>0.8</priority>
         <changefreq>weekly</changefreq>
     </url>
@@ -311,12 +306,12 @@
         <changefreq>weekly</changefreq>
     </url>
     <url>
-        <loc>https://favninja.com/explore/game/games.lightheart.mrautofire.html</loc>
+        <loc>https://favninja.com/explore/game/com.gameberry.sorry.card.board.game.html</loc>
         <priority>0.8</priority>
         <changefreq>weekly</changefreq>
     </url>
     <url>
-        <loc>https://favninja.com/explore/game/com.gameberry.sorry.card.board.game.html</loc>
+        <loc>https://favninja.com/explore/game/games.lightheart.mrautofire.html</loc>
         <priority>0.8</priority>
         <changefreq>weekly</changefreq>
     </url>
@@ -397,6 +392,11 @@
     </url>
     <url>
         <loc>https://favninja.com/explore/game/com.dts.freefireth.html</loc>
+        <priority>0.8</priority>
+        <changefreq>weekly</changefreq>
+    </url>
+    <url>
+        <loc>https://favninja.com/explore/game/com.mojang.minecraftpe.html</loc>
         <priority>0.8</priority>
         <changefreq>weekly</changefreq>
     </url>

@@ -288,7 +288,7 @@ function renderIndexHtml(gamesList) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>GameHub Discovery Platform - Best Mobile Games</title>
+    <title>GameMatrix - Best Mobile Games</title>
     <meta name="description" content="Explore our expert performance tracking platform. Download top hardware-tested mobile games for Android and iOS devices instantly.">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -353,7 +353,7 @@ function renderIndexHtml(gamesList) {
 <body>
     <header>
         <span style="font-size:18px;">🎮</span>
-        <h1>GameHub Discovery Platform</h1>
+        <h1>GameMatrix</h1>
     </header>
     <main class="matrix-container">
         <div class="matrix-grid">
@@ -434,11 +434,11 @@ function renderDetailHtml(game, seo, top10, totalGameList, appleStoreUrl) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     
-    <title>Download ${title} for Android & iOS - GameHub Review</title>
+    <title>Download ${title} for Android & iOS - GameMatrix Review</title>
     <meta name="description" content="Read our performance testing review for ${title}. Analyze data size metrics, hardware requirement benchmarks, and get official download nodes safely.">
     <meta name="robots" content="index, follow">
     
-    <meta property="og:title" content="${title} Download - GameHub Matrix">
+    <meta property="og:title" content="${title} Download - GameMatrix">
     <meta property="og:description" content="Is ${title} highly compatible with your phone storage layout? Read our deep analytical review now.">
     <meta property="og:image" content="${icon.replace('../../', '')}">
     <meta property="og:type" content="website">
@@ -583,7 +583,7 @@ function renderDetailHtml(game, seo, top10, totalGameList, appleStoreUrl) {
 <body>
     <header>
         <div class="header-inner">
-            <a href="../../index.html" class="nav-back">← GameHub Home</a>
+            <a href="../../index.html" class="nav-back">← GameMatrix Home</a>
         </div>
     </header>
     
