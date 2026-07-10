@@ -361,11 +361,11 @@ function renderIndexHtml(gamesList) {
         </div>
     </main>
     <footer>
-        <span>&copy; ${currentYear} FavNinja.com</span>
-        <a href="#">Contact</a>
-        <a href="#">Privacy Policy</a>
-        <a href="#">Terms Of Services</a>
-    </footer>
+    <span>&copy; ${currentYear} GameMatrix (FavNinja.com)</span>
+    <a href="/pages/contact.html" onclick="window.location.href='/pages/contact.html';">Contact</a>
+    <a href="/pages/privacy.html" onclick="window.location.href='/pages/privacy.html';">Privacy Policy</a>
+    <a href="/pages/terms.html" onclick="window.location.href='/pages/terms.html';">Terms Of Services</a>
+</footer>
 </body>
 </html>`;
 }
@@ -676,9 +676,11 @@ function renderDetailHtml(game, seo, top10, totalGameList, appleStoreUrl) {
     </div>
     
     <footer>
-        <span>&copy; ${currentYear} FavNinja.com</span>
-        <a href="#">Contact</a> | <a href="#">Privacy Policy</a> | <a href="#">Terms of Services</a>
-    </footer>
+    <span>&copy; ${currentYear} GameMatrix (FavNinja.com)</span>
+    <a href="/pages/contact.html" onclick="window.location.href='/pages/contact.html';">Contact</a>
+    <a href="/pages/privacy.html" onclick="window.location.href='/pages/privacy.html';">Privacy Policy</a>
+    <a href="/pages/terms.html" onclick="window.location.href='/pages/terms.html';">Terms Of Services</a>
+</footer>
 </body>
 </html>`;
 }

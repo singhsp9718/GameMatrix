@@ -6,7 +6,17 @@
         <changefreq>daily</changefreq>
     </url>
     <url>
+        <loc>https://favninja.com/explore/game/com.vitastudio.mahjongwood.html</loc>
+        <priority>0.8</priority>
+        <changefreq>weekly</changefreq>
+    </url>
+    <url>
         <loc>https://favninja.com/explore/game/com.direwolfdigital.root.html</loc>
+        <priority>0.8</priority>
+        <changefreq>weekly</changefreq>
+    </url>
+    <url>
+        <loc>https://favninja.com/explore/game/find.out.hidden.objects.seek.puzzle.games.free.html</loc>
         <priority>0.8</priority>
         <changefreq>weekly</changefreq>
     </url>
@@ -141,6 +151,11 @@
         <changefreq>weekly</changefreq>
     </url>
     <url>
+        <loc>https://favninja.com/explore/game/com.whaleapp.mafia.go.dice.master.html</loc>
+        <priority>0.8</priority>
+        <changefreq>weekly</changefreq>
+    </url>
+    <url>
         <loc>https://favninja.com/explore/game/com.chess.html</loc>
         <priority>0.8</priority>
         <changefreq>weekly</changefreq>
@@ -177,11 +192,6 @@
     </url>
     <url>
         <loc>https://favninja.com/explore/game/com.productmadness.hovmobile.html</loc>
-        <priority>0.8</priority>
-        <changefreq>weekly</changefreq>
-    </url>
-    <url>
-        <loc>https://favninja.com/explore/game/com.king.bubblewitch3.html</loc>
         <priority>0.8</priority>
         <changefreq>weekly</changefreq>
     </url>
@@ -241,6 +251,11 @@
         <changefreq>weekly</changefreq>
     </url>
     <url>
+        <loc>https://favninja.com/explore/game/com.dreamgames.royalkingdom.html</loc>
+        <priority>0.8</priority>
+        <changefreq>weekly</changefreq>
+    </url>
+    <url>
         <loc>https://favninja.com/explore/game/com.fungames.sniper3d.html</loc>
         <priority>0.8</priority>
         <changefreq>weekly</changefreq>
@@ -281,22 +296,17 @@
         <changefreq>weekly</changefreq>
     </url>
     <url>
-        <loc>https://favninja.com/explore/game/com.pieyel.scrabble.html</loc>
-        <priority>0.8</priority>
-        <changefreq>weekly</changefreq>
-    </url>
-    <url>
-        <loc>https://favninja.com/explore/game/com.marmalade.gol2.html</loc>
-        <priority>0.8</priority>
-        <changefreq>weekly</changefreq>
-    </url>
-    <url>
         <loc>https://favninja.com/explore/game/com.gameberry.sorry.card.board.game.html</loc>
         <priority>0.8</priority>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://favninja.com/explore/game/games.lightheart.mrautofire.html</loc>
+        <priority>0.8</priority>
+        <changefreq>weekly</changefreq>
+    </url>
+    <url>
+        <loc>https://favninja.com/explore/game/com.marmalade.gol2.html</loc>
         <priority>0.8</priority>
         <changefreq>weekly</changefreq>
     </url>
@@ -312,11 +322,6 @@
     </url>
     <url>
         <loc>https://favninja.com/explore/game/com.samfinaco.paradise.html</loc>
-        <priority>0.8</priority>
-        <changefreq>weekly</changefreq>
-    </url>
-    <url>
-        <loc>https://favninja.com/explore/game/com.FrameOfMindGames.ChessCraft.html</loc>
         <priority>0.8</priority>
         <changefreq>weekly</changefreq>
     </url>
@@ -352,11 +357,6 @@
     </url>
     <url>
         <loc>https://favninja.com/explore/game/com.sng.gin.online.html</loc>
-        <priority>0.8</priority>
-        <changefreq>weekly</changefreq>
-    </url>
-    <url>
-        <loc>https://favninja.com/explore/game/com.teenpatti.hd.gold.html</loc>
         <priority>0.8</priority>
         <changefreq>weekly</changefreq>
     </url>
