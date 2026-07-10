@@ -151,17 +151,17 @@
         <changefreq>weekly</changefreq>
     </url>
     <url>
+        <loc>https://favninja.com/explore/game/com.devsisters.crg.html</loc>
+        <priority>0.8</priority>
+        <changefreq>weekly</changefreq>
+    </url>
+    <url>
         <loc>https://favninja.com/explore/game/com.whaleapp.mafia.go.dice.master.html</loc>
         <priority>0.8</priority>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://favninja.com/explore/game/com.chess.html</loc>
-        <priority>0.8</priority>
-        <changefreq>weekly</changefreq>
-    </url>
-    <url>
-        <loc>https://favninja.com/explore/game/com.devsisters.crg.html</loc>
         <priority>0.8</priority>
         <changefreq>weekly</changefreq>
     </url>
@@ -401,12 +401,12 @@
         <changefreq>weekly</changefreq>
     </url>
     <url>
-        <loc>https://favninja.com/explore/game/com.wildspike.wormszone.html</loc>
+        <loc>https://favninja.com/explore/game/com.playgendary.bowmasters.html</loc>
         <priority>0.8</priority>
         <changefreq>weekly</changefreq>
     </url>
     <url>
-        <loc>https://favninja.com/explore/game/com.playgendary.bowmasters.html</loc>
+        <loc>https://favninja.com/explore/game/com.wildspike.wormszone.html</loc>
         <priority>0.8</priority>
         <changefreq>weekly</changefreq>
     </url>
