@@ -46,10 +46,10 @@
         .info-table td.value { color: #111; font-weight: 500; word-break: break-word; }
         
         .btn-row { display: flex; gap: 12px; margin-bottom: 30px; flex-wrap: wrap; }
-        .btn { flex: 1; min-width: 140px; text-align: center; padding: 11px; border-radius: 20px; font-weight: bold; font-size: 13px; text-decoration: none; transition: background 0.1s; }
-        .btn-appstore { background-color: #00da77; color: #fff; }
+        .btn { flex: 1; min-width: 140px; text-align: center; padding: 11px; border-radius: 20px; font-weight: bold; font-size: 13px; text-decoration: none; transition: background 0.1s; cursor: pointer; }
+        .btn-appstore { background-color: #00da77; color: #fff; border: none; }
         .btn-appstore:hover { background-color: #00be68; }
-        .btn-googleplay { background-color: #00da77; color: #fff; }
+        .btn-googleplay { background-color: #00da77; color: #fff; border: none; }
         .btn-googleplay:hover { background-color: #00be68; }
         
         .section-title { font-size: 18px; font-weight: bold; color: #222; margin-bottom: 14px; border-bottom: 1px solid #e1e4e8; padding-bottom: 6px; }
@@ -117,6 +117,20 @@
         .sidebar-title { font-size: 12px; font-weight: 600; color: #333; text-decoration: none; display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .sidebar-title:hover { color: #00875a; }
         .sidebar-rating { font-size: 11px; color: #e0a100; font-weight: bold; margin-top: 1px; }
+
+        /* DYNAMIC MODAL BOX UI OVERLAY */
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 9999; justify-content: center; align-items: center; opacity: 0; transition: opacity 0.2s ease; }
+        .modal-box { background: #fff; max-width: 400px; width: 90%; padding: 24px; border-radius: 14px; text-align: left; box-shadow: 0 4px 20px rgba(0,0,0,0.15); transform: scale(0.9); transition: transform 0.2s ease; }
+        .modal-overlay.active { display: flex; opacity: 1; }
+        .modal-overlay.active .modal-box { transform: scale(1); }
+        .modal-title { font-size: 16px; font-weight: bold; color: #202124; margin-bottom: 8px; }
+        .modal-msg { font-size: 13.5px; color: #5f6368; line-height: 1.5; margin-bottom: 20px; }
+        .modal-btn-row { display: flex; justify-content: flex-end; gap: 12px; }
+        .m-btn { padding: 8px 16px; font-size: 13px; font-weight: bold; border-radius: 8px; cursor: pointer; border: none; }
+        .m-btn-cancel { background: #f1f3f4; color: #3c4043; }
+        .m-btn-cancel:hover { background: #e8eaed; }
+        .m-btn-continue { background: #00da77; color: #fff; }
+        .m-btn-continue:hover { background: #00be68; }
         
         footer { 
             background: #fff; 
@@ -139,6 +153,8 @@
     </style>
     
     <script>
+        let globalRedirectTargetUrl = "";
+        
         function performCarouselScroll(btnElement, displacementVal) {
             const currentFrame = btnElement.closest('.slider-frame');
             if (currentFrame) {
@@ -146,6 +162,26 @@
                 if (targetContainer) {
                     targetContainer.scrollLeft += displacementVal;
                 }
+            }
+        }
+
+        function triggerRedirectNotice(targetStoreUrl, storeName) {
+            globalRedirectTargetUrl = targetStoreUrl;
+            document.getElementById("modalStoreName").innerText = storeName;
+            const modal = document.getElementById("redirectNoticeModal");
+            modal.classList.add("active");
+        }
+
+        function dismissRedirectModal() {
+            const modal = document.getElementById("redirectNoticeModal");
+            modal.classList.remove("active");
+            globalRedirectTargetUrl = "";
+        }
+
+        function executeFinalRedirect() {
+            if(globalRedirectTargetUrl !== "") {
+                window.open(globalRedirectTargetUrl, '_blank');
+                dismissRedirectModal();
             }
         }
     </script>
@@ -179,13 +215,13 @@
             </table>
             
             <div class="btn-row">
-                <a href="https://apps.apple.com/us/app/hearthstone/id625257520?uo=4" target="_blank" rel="noopener" class="btn btn-appstore">App Store</a>
-                <a href="https://play.google.com/store/apps/details?id=com.blizzard.wtcg.hearthstone&hl=en&gl=us" target="_blank" rel="noopener" class="btn btn-googleplay">Google Play</a>
+                <button onclick="triggerRedirectNotice('https://apps.apple.com/us/app/hearthstone/id625257520?uo=4', 'Apple App Store')" class="btn btn-appstore">App Store</button>
+                <button onclick="triggerRedirectNotice('https://play.google.com/store/apps/details?id=com.blizzard.wtcg.hearthstone&hl=en&gl=us', 'Google Play Store')" class="btn btn-googleplay">Google Play</button>
             </div>
             
             <h2 class="section-title">Editor's Review</h2>
             <div class="editor-content">
-                <p style="margin-bottom:10px;">Unleash your skills and dive into the mechanics of Hearthstone. Designed specifically for lovers of the Card category, this game combines interactive challenge loops with clean performance updates that keep players retained over longer cycles.</p>
+                <p style="margin-bottom:10px;">Discover what makes Hearthstone a standout application within the modern mobile ecosystem. Combining traditional Card strategies with updated graphical elements, it targets modern hardware profiles efficiently while delivering intuitive user experiences.</p>
                 <p style="margin-bottom:10px;">Architecturally, the app focuses on several key layers. Notably, Welcome to Hearthstone, the strategy card game that’s easy to learn but impossible to put down. Furthermore, user patterns show that Play for FREE and complete quests to earn free rewards.</p>
                 
                 <div class="seo-badges-frame">
@@ -365,6 +401,18 @@
         </div>
             </div>
         </aside>
+    </div>
+    
+    <!-- HIGH PREMIUM DYNAMIC REDIRECTION DIALOG ENGINE -->
+    <div id="redirectNoticeModal" class="modal-overlay" onclick="dismissRedirectModal()">
+        <div class="modal-box" onclick="event.stopPropagation()">
+            <div class="modal-title">Redirecting to Official Store</div>
+            <div class="modal-msg">You are now leaving GameMatrix (FavNinja.com) and being safely redirected to the official <span id="modalStoreName" style="font-weight: bold; color: #00875a;">Store</span>. Are you sure you want to continue?</div>
+            <div class="modal-btn-row">
+                <button class="m-btn m-btn-cancel" onclick="dismissRedirectModal()">CANCEL</button>
+                <button class="m-btn m-btn-continue" onclick="executeFinalRedirect()">CONTINUE</button>
+            </div>
+        </div>
     </div>
     
    <footer>

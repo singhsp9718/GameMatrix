@@ -146,12 +146,12 @@
         <changefreq>weekly</changefreq>
     </url>
     <url>
-        <loc>https://favninja.com/explore/game/com.sega.sonicdash.html</loc>
+        <loc>https://favninja.com/explore/game/com.devsisters.crg.html</loc>
         <priority>0.8</priority>
         <changefreq>weekly</changefreq>
     </url>
     <url>
-        <loc>https://favninja.com/explore/game/com.devsisters.crg.html</loc>
+        <loc>https://favninja.com/explore/game/com.sega.sonicdash.html</loc>
         <priority>0.8</priority>
         <changefreq>weekly</changefreq>
     </url>
@@ -301,12 +301,12 @@
         <changefreq>weekly</changefreq>
     </url>
     <url>
-        <loc>https://favninja.com/explore/game/games.lightheart.mrautofire.html</loc>
+        <loc>https://favninja.com/explore/game/com.marmalade.gol2.html</loc>
         <priority>0.8</priority>
         <changefreq>weekly</changefreq>
     </url>
     <url>
-        <loc>https://favninja.com/explore/game/com.marmalade.gol2.html</loc>
+        <loc>https://favninja.com/explore/game/games.lightheart.mrautofire.html</loc>
         <priority>0.8</priority>
         <changefreq>weekly</changefreq>
     </url>
