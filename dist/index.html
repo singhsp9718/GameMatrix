@@ -3,276 +3,783 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>GameMatrix - Premium Discovery Platform</title>
+    <title>GameMatrix - Best Mobile Games</title>
+    <meta name="description" content="Explore our expert performance tracking platform. Download top hardware-tested mobile games for Android and iOS devices instantly.">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { background-color: #00bfa5; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; padding-bottom: 60px; }
-        header { background-color: #00875a; padding: 16px; text-align: center; color: white; font-weight: bold; font-size: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-        .grid-container { max-width: 1200px; margin: 20px auto; padding: 0 16px; display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 16px; }
-        @media (max-width: 480px) {
-            .grid-container { grid-template-columns: repeat(3, 1fr); gap: 8px; padding: 0 8px; }
+        body { background-color: #00bfa5; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; color: #fff; padding: 0; min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
+        header { background-color: #00875a; padding: 14px 24px; border-bottom: 1px solid rgba(0,0,0,0.1); display: flex; align-items: center; gap: 10px; }
+        header h1 { font-size: 18px; color: #fff; font-weight: 600; letter-spacing: 0.2px; }
+        
+        .matrix-container { flex: 1; padding: 20px 12px; display: flex; justify-content: center; width: 100%; }
+        
+        .matrix-grid { 
+            display: grid; 
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 12px; 
+            max-width: 480px; 
+            width: 100%; 
+            grid-auto-rows: 1fr;
+            grid-auto-flow: dense;
         }
-        .game-card { background: white; border-radius: 14px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.06); text-align: center; padding: 10px; display: flex; flex-direction: column; align-items: center; text-decoration: none; color: #333; transition: transform 0.2s; }
-        .game-card:hover { transform: translateY(-4px); }
-        .game-icon { width: 72px; height: 72px; border-radius: 16px; object-fit: cover; margin-bottom: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
-        @media (max-width: 480px) { .game-icon { width: 64px; height: 64px; border-radius: 14px; } }
-        .game-title { font-size: 12px; font-weight: 600; line-height: 1.3; max-height: 2.6em; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
-        footer { background: #00875a; color: white; text-align: center; padding: 20px; position: fixed; bottom: 0; left: 0; width: 100%; font-size: 12px; display: flex; flex-direction: column; gap: 8px; align-items: center; border-top: 1px solid rgba(0,0,0,0.1); z-index: 100; }
-        .footer-links a { color: #fff; text-decoration: underline; margin: 0 10px; font-weight: 500; }
+        
+        .grid-item { 
+            position: relative; 
+            border-radius: 18px; 
+            overflow: hidden; 
+            background: #fff; 
+            box-shadow: 0 3px 8px rgba(0,0,0,0.12); 
+            transition: transform 0.2s ease, box-shadow 0.2s ease; 
+            width: 100%; 
+            aspect-ratio: 1 / 1;
+        }
+        .grid-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        
+        .row1-big { grid-column: 1 / 3; grid-row: span 2; }
+        .row1-small { grid-column: 3 / 4; grid-row: span 1; }
+        .row-small-fit { grid-row: span 1; }
+        .row2-big { grid-column: 2 / 4; grid-row: span 2; }
+        .standard-col { grid-column: span 1; grid-row: span 1; }
+
+        .grid-item:hover { transform: scale(1.03); z-index: 5; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+        .hover-mask { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 135, 90, 0.95); opacity: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 8px; transition: opacity 0.2s ease; text-decoration: none; color: #fff; z-index: 2; }
+        .grid-item:hover .hover-mask { opacity: 1; }
+        .mask-title { font-size: 11px; font-weight: bold; line-height: 1.3; max-height: 42px; overflow: hidden; margin-bottom: 4px; color: #fff; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; }
+        .mask-stars { font-size: 11px; color: #ffd600; }
+        
+        @media(min-width: 768px) {
+            .matrix-container { padding: 30px 15px; }
+            .matrix-grid { 
+                max-width: 1200px; 
+                grid-template-columns: repeat(auto-fill, minmax(115px, 1fr)); 
+                grid-auto-rows: 115px; 
+                gap: 16px; 
+            }
+            .row1-big { grid-column: span 2; grid-row: span 2; }
+            .row2-big { grid-column: span 2; grid-row: span 2; }
+            .row1-small, .row-small-fit, .standard-col { grid-column: span 1; grid-row: span 1; }
+        }
+
+        footer { background: #fff; text-align: center; color: #00875a; font-size: 12px; border-top: 1px solid #e0e0e0; padding: 16px; margin-top: auto; display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; font-weight: 500; }
+        footer a { color: #00875a; text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
     </style>
 </head>
 <body>
-    <header>GameMatrix Discovery Platform</header>
-    <main class="grid-container">
-        
-            <a class="game-card" href="explore/game/com.google.android.apps.messaging.html">
-                <img class="game-icon" src="assets/images/com.google.android.apps.messaging-icon.png" onerror="this.src='https://play-lh.googleusercontent.com/Mgukz1fq2stUYX_lQf79gmMeDzNvRCu5eobmiJwNkXl4riNY6HZ3VB-HRW5QciwEuLnFyk_ZmHumvn8RJ5Um'" loading="lazy" alt="Google Messages">
-                <span class="game-title">Google Messages</span>
+    <header>
+        <span style="font-size:18px;">🎮</span>
+        <h1>GameMatrix</h1>
+    </header>
+    <main class="matrix-container">
+        <div class="matrix-grid">
+            
+        <div class="grid-item row1-big">
+            <img src="assets/images/com.direwolfdigital.root/icon.png" alt="Root Board Game" loading="lazy" />
+            <a href="explore/game/com.direwolfdigital.root.html" class="hover-mask">
+                <div class="mask-title">Root Board Game</div>
+                <div class="mask-stars">★★★★★</div>
             </a>
-            <a class="game-card" href="explore/game/com.openai.chatgpt.html">
-                <img class="game-icon" src="assets/images/com.openai.chatgpt-icon.png" onerror="this.src='https://play-lh.googleusercontent.com/T9J8e9oxxPd600j_KPM4KK2GHfNpUpGBdTy8lHPXBXpOUfGusRuZXj0UMgFNrP8we6LVt9V-AibEgcLootE6VK4'" loading="lazy" alt="ChatGPT">
-                <span class="game-title">ChatGPT</span>
+        </div>
+        <div class="grid-item row1-small">
+            <img src="assets/images/com.bbumgames.rummystars/icon.png" alt="Gin Rummy Stars - Card Game" loading="lazy" />
+            <a href="explore/game/com.bbumgames.rummystars.html" class="hover-mask">
+                <div class="mask-title">Gin Rummy Stars - Card Game</div>
+                <div class="mask-stars">★★★★★</div>
             </a>
-            <a class="game-card" href="explore/game/com.fox.foxone.html">
-                <img class="game-icon" src="assets/images/com.fox.foxone-icon.png" onerror="this.src='https://play-lh.googleusercontent.com/ebCaN5awfvgyVRQ2mgjbp1gcoPaMttdHOe-cM1KXEw2jZe2HHbomLpcKjNswM8yKc4qXGtCLNyZnmraY0AZhhCQ'" loading="lazy" alt="FOX One: Live News, Sports, TV">
-                <span class="game-title">FOX One: Live News, Sports, TV</span>
+        </div>
+        <div class="grid-item row1-small">
+            <img src="assets/images/com.jmsgame.jackpotmastercasino/icon.png" alt="Jackpot Master™ Slots - Casino" loading="lazy" />
+            <a href="explore/game/com.jmsgame.jackpotmastercasino.html" class="hover-mask">
+                <div class="mask-title">Jackpot Master™ Slots - Casino</div>
+                <div class="mask-stars">★★★★★</div>
             </a>
-            <a class="game-card" href="explore/game/com.ss.android.ugc.tiktok.pro.html">
-                <img class="game-icon" src="assets/images/com.ss.android.ugc.tiktok.pro-icon.png" onerror="this.src='https://play-lh.googleusercontent.com/PKSZ5KxriEBiLm1_LyNrOMANu7sI59pfIxwzmv2-9NXqf3IaK1kRW13rj_J8PtrW72dcDdN9BzYsjs02Tge0OA'" loading="lazy" alt="TikTok Pro - Events">
-                <span class="game-title">TikTok Pro - Events</span>
+        </div>
+        <div class="grid-item row-small-fit">
+            <img src="assets/images/com.williamsinteractive.goldfish/icon.png" alt="Gold Fish Casino Slot Games" loading="lazy" />
+            <a href="explore/game/com.williamsinteractive.goldfish.html" class="hover-mask">
+                <div class="mask-title">Gold Fish Casino Slot Games</div>
+                <div class="mask-stars">★★★★★</div>
             </a>
-            <a class="game-card" href="explore/game/com.ss.android.ttmd.video.html">
-                <img class="game-icon" src="assets/images/com.ss.android.ttmd.video-icon.png" onerror="this.src='https://play-lh.googleusercontent.com/pfc2SBr-JiF9y5d47tVq2hreXASR0MOZV2SA0CHk0GGyPpmf2e47GtkOJi3_pL9PDYVh1dG6vxqRFzpBOHzN'" loading="lazy" alt="PineDrama - Short Dramas">
-                <span class="game-title">PineDrama - Short Dramas</span>
+        </div>
+        <div class="grid-item row-small-fit">
+            <img src="assets/images/com.diamondlife.slots.vegas.free/icon.png" alt="Lotsa Slots - Casino Games" loading="lazy" />
+            <a href="explore/game/com.diamondlife.slots.vegas.free.html" class="hover-mask">
+                <div class="mask-title">Lotsa Slots - Casino Games</div>
+                <div class="mask-stars">★★★★★</div>
             </a>
-            <a class="game-card" href="explore/game/com.kalshi.mobile.html">
-                <img class="game-icon" src="assets/images/com.kalshi.mobile-icon.png" onerror="this.src='https://play-lh.googleusercontent.com/xqqztHYjICcovxgfuUeVvD-nrTrJS3xHisZXn7fycgdfm-D7RYxwFeu0jGBjp1rUm_X57YryaotZD-IBLuQdqjg'" loading="lazy" alt="Kalshi: Trade the World Cup">
-                <span class="game-title">Kalshi: Trade the World Cup</span>
+        </div>
+        <div class="grid-item row2-big">
+            <img src="assets/images/com.mattel163.skipbo/icon.png" alt="Skip-Bo™: Solitaire Card Game" loading="lazy" />
+            <a href="explore/game/com.mattel163.skipbo.html" class="hover-mask">
+                <div class="mask-title">Skip-Bo™: Solitaire Card Game</div>
+                <div class="mask-stars">★★★★★</div>
             </a>
-            <a class="game-card" href="explore/game/gov.trumpaccounts.goldeneagle.html">
-                <img class="game-icon" src="assets/images/gov.trumpaccounts.goldeneagle-icon.png" onerror="this.src='https://play-lh.googleusercontent.com/mGmQIQ658xKWpwVqE_egxKmG4wYN4IZJR_-peWcREi-D_5RMTq7sEZwvzdgMznmu98pETuhyveW9IPRGetZ_'" loading="lazy" alt="Trump Accounts: Official App">
-                <span class="game-title">Trump Accounts: Official App</span>
+        </div>
+        <div class="grid-item row-small-fit">
+            <img src="assets/images/com.block.juggle/icon.png" alt="Block Blast!" loading="lazy" />
+            <a href="explore/game/com.block.juggle.html" class="hover-mask">
+                <div class="mask-title">Block Blast!</div>
+                <div class="mask-stars">★★★★★</div>
             </a>
-            <a class="game-card" href="explore/game/com.peacocktv.peacockandroid.html">
-                <img class="game-icon" src="assets/images/com.peacocktv.peacockandroid-icon.png" onerror="this.src='https://play-lh.googleusercontent.com/FdlQY6tEE0p3FsJT9EbxB0BzKdXB1U84nNzAUl_YCC9HxRO1J82i8-XWuN_BD1zReblXht3-cvUreuogHrPk-A'" loading="lazy" alt="Peacock TV: Stream TV & Movies">
-                <span class="game-title">Peacock TV: Stream TV & Movies</span>
+        </div>
+        <div class="grid-item row-small-fit">
+            <img src="assets/images/solitaire.patience.card.games.klondike.free/icon.png" alt="Solitaire - Classic Card Games" loading="lazy" />
+            <a href="explore/game/solitaire.patience.card.games.klondike.free.html" class="hover-mask">
+                <div class="mask-title">Solitaire - Classic Card Games</div>
+                <div class="mask-stars">★★★★★</div>
             </a>
-            <a class="game-card" href="explore/game/com.facebook.stella.html">
-                <img class="game-icon" src="assets/images/com.facebook.stella-icon.png" onerror="this.src='https://play-lh.googleusercontent.com/o3R5N2Pz3oLVfMCbDWhAWA1WNUxewxwhRgLJUCHVR3QQA57oWXt6Yw5lYN-Huj0ZYxLZ3_7ZwcnvmbfDiv4q'" loading="lazy" alt="Meta AI">
-                <span class="game-title">Meta AI</span>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.ntg.solitaire.tripeaks/icon.png" alt="Solitaire Tripeaks: Card Games" loading="lazy" />
+            <a href="explore/game/com.ntg.solitaire.tripeaks.html" class="hover-mask">
+                <div class="mask-title">Solitaire Tripeaks: Card Games</div>
+                <div class="mask-stars">★★★★★</div>
             </a>
-            <a class="game-card" href="explore/game/com.whatsapp.html">
-                <img class="game-icon" src="assets/images/com.whatsapp-icon.png" onerror="this.src='https://play-lh.googleusercontent.com/Gqxk4T0uZsDwFp07DE-508hkyvcNmgFuRwPiwTEfF7D7OzGv1FdHDzEyMxNsSBZLOJlGpe3ULvVM2RgrRAlBqA'" loading="lazy" alt="WhatsApp Messenger">
-                <span class="game-title">WhatsApp Messenger</span>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.gamovation.chessclubpilot/icon.png" alt="Chess - Offline Board Game" loading="lazy" />
+            <a href="explore/game/com.gamovation.chessclubpilot.html" class="hover-mask">
+                <div class="mask-title">Chess - Offline Board Game</div>
+                <div class="mask-stars">★★★★★</div>
             </a>
-            <a class="game-card" href="explore/game/easy.launcher.html">
-                <img class="game-icon" src="assets/images/easy.launcher-icon.png" onerror="this.src='https://play-lh.googleusercontent.com/hmQoUQolIwD8zpuOSJqphdcoOWob65kcRdGGz0uGOi-vBAU8YBHyYe-XkLq414QuUh4EJWInpAoXugjGwTn4'" loading="lazy" alt="Easy Homescreen">
-                <span class="game-title">Easy Homescreen</span>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.bagelcode.slots1/icon.png" alt="Club Vegas Casino Slots Games" loading="lazy" />
+            <a href="explore/game/com.bagelcode.slots1.html" class="hover-mask">
+                <div class="mask-title">Club Vegas Casino Slots Games</div>
+                <div class="mask-stars">★★★★★</div>
             </a>
-            <a class="game-card" href="explore/game/com.zhiliaoapp.musically.html">
-                <img class="game-icon" src="assets/images/com.zhiliaoapp.musically-icon.png" onerror="this.src='https://play-lh.googleusercontent.com/2o7iuqPe-0msP3DvNhzoOgNo4eZ6GkL_RtGVeKyBn5UBQAW5cw-GW5V3wDOHB1yTQuqWzrFLFOv2u4_5ea1uhg'" loading="lazy" alt="TikTok - Videos, Shop & LIVE">
-                <span class="game-title">TikTok - Videos, Shop & LIVE</span>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.vitastudio.mahjong/icon.png" alt="Vita Mahjong" loading="lazy" />
+            <a href="explore/game/com.vitastudio.mahjong.html" class="hover-mask">
+                <div class="mask-title">Vita Mahjong</div>
+                <div class="mask-stars">★★★★★</div>
             </a>
-            <a class="game-card" href="explore/game/com.storymatrix.drama.html">
-                <img class="game-icon" src="assets/images/com.storymatrix.drama-icon.png" onerror="this.src='https://play-lh.googleusercontent.com/GGi0g65ySR86svFuxny2J2FgfkTZuFlJcftmeAZ_bZ7sM86XfwUNL1h9omSyoRKha1c1-_BoFkUbyJz2VSXI'" loading="lazy" alt="DramaBox - Stream Drama Shorts">
-                <span class="game-title">DramaBox - Stream Drama Shorts</span>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.aaagame.aaacasino/icon.png" alt="Classic Slots™ - Casino Games" loading="lazy" />
+            <a href="explore/game/com.aaagame.aaacasino.html" class="hover-mask">
+                <div class="mask-title">Classic Slots™ - Casino Games</div>
+                <div class="mask-stars">★★★★★</div>
             </a>
-            <a class="game-card" href="explore/game/com.tiktok.lite.go.html">
-                <img class="game-icon" src="assets/images/com.tiktok.lite.go-icon.png" onerror="this.src='https://play-lh.googleusercontent.com/S86MXXSj9_08E__by-NaXaKwJTSYZXWuwOdEkeOeD1jH1Yu-l6yIdjOvjQWyphkYoarRyMSHKzTN83L73ZPieA'" loading="lazy" alt="TikTok Lite - Faster TikTok">
-                <span class="game-title">TikTok Lite - Faster TikTok</span>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.biglime.cookingmadness/icon.png" alt="Cooking Madness: A Chef's Game" loading="lazy" />
+            <a href="explore/game/com.biglime.cookingmadness.html" class="hover-mask">
+                <div class="mask-title">Cooking Madness: A Chef's Game</div>
+                <div class="mask-stars">★★★★★</div>
             </a>
-            <a class="game-card" href="explore/game/com.dramawave.app.html">
-                <img class="game-icon" src="assets/images/com.dramawave.app-icon.png" onerror="this.src='https://play-lh.googleusercontent.com/qdfS5KciqnG6lP2HCxKT-CoeWrGdXsxe2sQgRR_-X-G_MVG5WZljSIesMUPkAkic0cjxgsp7gA6WMNXaq-lA6iU'" loading="lazy" alt="DramaWave - Dramas & Reels">
-                <span class="game-title">DramaWave - Dramas & Reels</span>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.vizorapps.atlantis/icon.png" alt="Atlantis Odyssey: Аdventure" loading="lazy" />
+            <a href="explore/game/com.vizorapps.atlantis.html" class="hover-mask">
+                <div class="mask-title">Atlantis Odyssey: Аdventure</div>
+                <div class="mask-stars">★★★★★</div>
             </a>
-            <a class="game-card" href="explore/game/com.instagram.android.html">
-                <img class="game-icon" src="assets/images/com.instagram.android-icon.png" onerror="this.src='https://play-lh.googleusercontent.com/yHi59jmO_lVamcyJ1i3rM1_E8bAiAspShnGjjURq05ipQQSUksO3QVEsXTegRSqul038-4YNA7O644XAcx251Q'" loading="lazy" alt="Instagram">
-                <span class="game-title">Instagram</span>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.onemb.shadowborn/icon.png" alt="Shadowborn" loading="lazy" />
+            <a href="explore/game/com.onemb.shadowborn.html" class="hover-mask">
+                <div class="mask-title">Shadowborn</div>
+                <div class="mask-stars">★★★★★</div>
             </a>
-            <a class="game-card" href="explore/game/com.einnovation.temu.html">
-                <img class="game-icon" src="assets/images/com.einnovation.temu-icon.png" onerror="this.src='https://play-lh.googleusercontent.com/opNFHpwXUxk8zAVzQbvBgEcBPmgYt0uX-p28VKDZ8nJNFPA7_JHx3PO3ski-GW_FW7gf3jrEP4OCKxTpP7Wv_w'" loading="lazy" alt="Temu: Shop Like a Billionaire">
-                <span class="game-title">Temu: Shop Like a Billionaire</span>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.moonactive.coinmaster/icon.png" alt="Coin Master" loading="lazy" />
+            <a href="explore/game/com.moonactive.coinmaster.html" class="hover-mask">
+                <div class="mask-title">Coin Master</div>
+                <div class="mask-stars">★★★★★</div>
             </a>
-            <a class="game-card" href="explore/game/com.codeway.aitutor.html">
-                <img class="game-icon" src="assets/images/com.codeway.aitutor-icon.png" onerror="this.src='https://play-lh.googleusercontent.com/leqcHo5HObqgD_Oq9To0q3ibkKcWTfAqft8DisnzeJIUTdX1O5dEs2utYXB-lqLuTJwS50VnlsJiZxp2TEMeAQ'" loading="lazy" alt="Learn English, Spanish: Learna">
-                <span class="game-title">Learn English, Spanish: Learna</span>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/slots.pcg.casino.games.free.android/icon.png" alt="Cash Frenzy™ - Casino Slots" loading="lazy" />
+            <a href="explore/game/slots.pcg.casino.games.free.android.html" class="hover-mask">
+                <div class="mask-title">Cash Frenzy™ - Casino Slots</div>
+                <div class="mask-stars">★★★★★</div>
             </a>
-            <a class="game-card" href="explore/game/com.newleaf.app.android.victor.html">
-                <img class="game-icon" src="assets/images/com.newleaf.app.android.victor-icon.png" onerror="this.src='https://play-lh.googleusercontent.com/mzo4PnyNudAfdPmD7kPGoX0-OWqPgngejYRmiEkva1WCPvLfnA5n7CQWYJErwFGnGw-cg4zBXf8JOVVtrKM0HmI'" loading="lazy" alt="ReelShort - Stream Drama & TV">
-                <span class="game-title">ReelShort - Stream Drama & TV</span>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.halfbrick.dantheman/icon.png" alt="Dan the Man: Action Platformer" loading="lazy" />
+            <a href="explore/game/com.halfbrick.dantheman.html" class="hover-mask">
+                <div class="mask-title">Dan the Man: Action Platformer</div>
+                <div class="mask-stars">★★★★★</div>
             </a>
-            <a class="game-card" href="explore/game/com.vibeshort.visualnovel.android.html">
-                <img class="game-icon" src="assets/images/com.vibeshort.visualnovel.android-icon.png" onerror="this.src='https://play-lh.googleusercontent.com/fLxYdKk9hGCSPgtxZjjENqNluD8sTHp-rLsVgNna9E8tgvjnLno6fEgRzzLjXA5kbu0UuSUDMCjZqnFZDUfeXg'" loading="lazy" alt="VibeShort: AI Comic Dramas">
-                <span class="game-title">VibeShort: AI Comic Dramas</span>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.os.space.force.galaxy.alien/icon.png" alt="Galaxiga: Galaxy Arcade Game" loading="lazy" />
+            <a href="explore/game/com.os.space.force.galaxy.alien.html" class="hover-mask">
+                <div class="mask-title">Galaxiga: Galaxy Arcade Game</div>
+                <div class="mask-stars">★★★★★</div>
             </a>
-            <a class="game-card" href="explore/game/com.anthropic.claude.html">
-                <img class="game-icon" src="assets/images/com.anthropic.claude-icon.png" onerror="this.src='https://play-lh.googleusercontent.com/YeFCFSW5LkBVdsEAL_fjzxDxTbhKz31j1uZUfDbSaCeM0t4Bi3SqyHTWzWsUsZnbwjofXhYajitG_gr2_B2xil8'" loading="lazy" alt="Claude by Anthropic">
-                <span class="game-title">Claude by Anthropic</span>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/net.peakgames.mobile.spades.android/icon.png" alt="Spades Plus - Card Game" loading="lazy" />
+            <a href="explore/game/net.peakgames.mobile.spades.android.html" class="hover-mask">
+                <div class="mask-title">Spades Plus - Card Game</div>
+                <div class="mask-stars">★★★★★</div>
             </a>
-            <a class="game-card" href="explore/game/com.storyreel.tv.android.html">
-                <img class="game-icon" src="assets/images/com.storyreel.tv.android-icon.png" onerror="this.src='https://play-lh.googleusercontent.com/N0woiRcYR9igbILRGCMZrjB9tkjdOJ7gg2n86pNsGAB8bVZGigxC74fy5lA2fH0vJsxpK-Ho92bxd5f3xHa75g'" loading="lazy" alt="StoryReel: Exclusive Drama">
-                <span class="game-title">StoryReel: Exclusive Drama</span>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.tensquaregames.letsfish2/icon.png" alt="Fishing Clash: Sport Simulator" loading="lazy" />
+            <a href="explore/game/com.tensquaregames.letsfish2.html" class="hover-mask">
+                <div class="mask-title">Fishing Clash: Sport Simulator</div>
+                <div class="mask-stars">★★★★★</div>
             </a>
-            <a class="game-card" href="explore/game/com.storage.androidcleaner.html">
-                <img class="game-icon" src="assets/images/com.storage.androidcleaner-icon.png" onerror="this.src='https://play-lh.googleusercontent.com/ch_hRY59cDYlQrI-Utveqytsnu3rsMbhWeZWnX8AFLj4nW-CqA0BGl8EFxkk4Lz8DzEorfag343uFRgVPWCQ'" loading="lazy" alt="Cleanup: Phone Storage Cleaner">
-                <span class="game-title">Cleanup: Phone Storage Cleaner</span>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.pazugames.avatarworld/icon.png" alt="Avatar World ®" loading="lazy" />
+            <a href="explore/game/com.pazugames.avatarworld.html" class="hover-mask">
+                <div class="mask-title">Avatar World ®</div>
+                <div class="mask-stars">★★★★★</div>
             </a>
-            <a class="game-card" href="explore/game/com.freecash.app2.html">
-                <img class="game-icon" src="assets/images/com.freecash.app2-icon.png" onerror="this.src='https://play-lh.googleusercontent.com/MqMKh5WAFtznYbtdHRKpihRnD8buqRvt2FS7mZkIHy0Yetxp4knXhruByOkjluyW8_-E7-6XqRVdQnwgzaBXfg'" loading="lazy" alt="Freecash: Earn Money">
-                <span class="game-title">Freecash: Earn Money</span>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.theguligames.landsofadventure/icon.png" alt="Legendale: Adventure Games" loading="lazy" />
+            <a href="explore/game/com.theguligames.landsofadventure.html" class="hover-mask">
+                <div class="mask-title">Legendale: Adventure Games</div>
+                <div class="mask-stars">★★★★★</div>
             </a>
-            <a class="game-card" href="explore/game/com.trusted.pdfeditor.pdfreader.html">
-                <img class="game-icon" src="assets/images/com.trusted.pdfeditor.pdfreader-icon.png" onerror="this.src='https://play-lh.googleusercontent.com/JXRayZr9vfqTWA_POf55l4jsA0v8yPtFrTZlBaSzROUq3aTIx-K0hb55OC-xXGQLOORH6kg57HVFsk6wNStbXg'" loading="lazy" alt="PDF Reader, PDF Viewer">
-                <span class="game-title">PDF Reader, PDF Viewer</span>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.greencod.pinballdeluxereloaded/icon.png" alt="Pinball Deluxe: Reloaded" loading="lazy" />
+            <a href="explore/game/com.greencod.pinballdeluxereloaded.html" class="hover-mask">
+                <div class="mask-title">Pinball Deluxe: Reloaded</div>
+                <div class="mask-stars">★★★★★</div>
             </a>
-            <a class="game-card" href="explore/game/com.soundcontroller.loudspeaker.volume.manager.android.html">
-                <img class="game-icon" src="assets/images/com.soundcontroller.loudspeaker.volume.manager.android-icon.png" onerror="this.src='https://play-lh.googleusercontent.com/vxaA3YWsjgqrBTjjrVL7QV_cOQjMg-728iGgJuYk8n2fyD1uejY15wQoBBgMygcbaexDhwq1Z8cjaqlD2X3t'" loading="lazy" alt="Volume Control Sound Launcher">
-                <span class="game-title">Volume Control Sound Launcher</span>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.productmadness.lightninglink/icon.png" alt="Lightning Link Casino Slots" loading="lazy" />
+            <a href="explore/game/com.productmadness.lightninglink.html" class="hover-mask">
+                <div class="mask-title">Lightning Link Casino Slots</div>
+                <div class="mask-stars">★★★★★</div>
             </a>
-            <a class="game-card" href="explore/game/com.hotmini.drama.hot.html">
-                <img class="game-icon" src="assets/images/com.hotmini.drama.hot-icon.png" onerror="this.src='https://play-lh.googleusercontent.com/iuO-LBHq5XehHjNW4hfFM6veY17H8hsK__f8gNfUHgB6AH9D1eNgwVSoH_WuuJIuthq3Evrp7UdFt0Amn3VI'" loading="lazy" alt="HotMiniDrama">
-                <span class="game-title">HotMiniDrama</span>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.sega.sonicdash/icon.png" alt="Sonic Dash Run" loading="lazy" />
+            <a href="explore/game/com.sega.sonicdash.html" class="hover-mask">
+                <div class="mask-title">Sonic Dash Run</div>
+                <div class="mask-stars">★★★★★</div>
             </a>
-            <a class="game-card" href="explore/game/com.whatnot_mobile.html">
-                <img class="game-icon" src="assets/images/com.whatnot_mobile-icon.png" onerror="this.src='https://play-lh.googleusercontent.com/wEQOqpC90lbIWelqnb2fXpU-84meB6VUpYe4fNLX3EUg6QGTtYGLFS-LZzcjs7WUvn4HScPbgwO7vfVp3uogPA'" loading="lazy" alt="Whatnot: Shop, Sell, Connect">
-                <span class="game-title">Whatnot: Shop, Sell, Connect</span>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.chess/icon.png" alt="Chess - Play and Learn Online" loading="lazy" />
+            <a href="explore/game/com.chess.html" class="hover-mask">
+                <div class="mask-title">Chess - Play and Learn Online</div>
+                <div class="mask-stars">★★★★★</div>
             </a>
-            <a class="game-card" href="explore/game/com.lemon.lvoverseas.html">
-                <img class="game-icon" src="assets/images/com.lemon.lvoverseas-icon.png" onerror="this.src='https://play-lh.googleusercontent.com/M78HyakHaxKrjoeqYx41E9DXfVYYtx67nvc7Ks4G4zFQeaAJdGCi8gzzGSrHIwlrmnJS6zD9S4fAXqdEwfuHQAQ'" loading="lazy" alt="CapCut - Video Editor">
-                <span class="game-title">CapCut - Video Editor</span>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.devsisters.crg/icon.png" alt="CookieRun Classic" loading="lazy" />
+            <a href="explore/game/com.devsisters.crg.html" class="hover-mask">
+                <div class="mask-title">CookieRun Classic</div>
+                <div class="mask-stars">★★★★★</div>
             </a>
-            <a class="game-card" href="explore/game/com.sms.messages.messanger.mmsmessages.html">
-                <img class="game-icon" src="assets/images/com.sms.messages.messanger.mmsmessages-icon.png" onerror="this.src='https://play-lh.googleusercontent.com/TTHFnHP9CLUCkh7u0QCLbmUrTYgwoi83w_EMhqdx74a7YaS5RUemQK9Z0CRAloZcKyXz9QsKoNosUw8oAJMYTqA'" loading="lazy" alt="Messages For Android">
-                <span class="game-title">Messages For Android</span>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.movile.playkids.pkxd/icon.png" alt="PK XD: Fun, friends & games" loading="lazy" />
+            <a href="explore/game/com.movile.playkids.pkxd.html" class="hover-mask">
+                <div class="mask-title">PK XD: Fun, friends & games</div>
+                <div class="mask-stars">★★★★★</div>
             </a>
-            <a class="game-card" href="explore/game/cn.danatech.xingseus.html">
-                <img class="game-icon" src="assets/images/cn.danatech.xingseus-icon.png" onerror="this.src='https://play-lh.googleusercontent.com/sOAGaLPazp5jvgrz7JQNV_hcvjpMdgjrkVUfSbrdp1uDn601yv0iVajsQBHnTxmr6IllOl9j7n3mehjBwDE3kg'" loading="lazy" alt="PictureThis - Plant Identifier">
-                <span class="game-title">PictureThis - Plant Identifier</span>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.ballytechnologies.quickhitslots/icon.png" alt="Quick Hit Casino Slots Games" loading="lazy" />
+            <a href="explore/game/com.ballytechnologies.quickhitslots.html" class="hover-mask">
+                <div class="mask-title">Quick Hit Casino Slots Games</div>
+                <div class="mask-stars">★★★★★</div>
             </a>
-            <a class="game-card" href="explore/game/com.facebook.katana.html">
-                <img class="game-icon" src="assets/images/com.facebook.katana-icon.png" onerror="this.src='https://play-lh.googleusercontent.com/12KEJDhgk6oyE1VgmfCuFzFrQripZ_endElbvEhU1rZawQgV3RI-v3II8fDslI1sdC_WKBkmtxS3jxuIihk33Q'" loading="lazy" alt="Facebook">
-                <span class="game-title">Facebook</span>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.mobilityware.Spades/icon.png" alt="Spades: Classic Card Games" loading="lazy" />
+            <a href="explore/game/com.mobilityware.Spades.html" class="hover-mask">
+                <div class="mask-title">Spades: Classic Card Games</div>
+                <div class="mask-stars">★★★★★</div>
             </a>
-            <a class="game-card" href="explore/game/com.messages.sms.textmessages.html">
-                <img class="game-icon" src="assets/images/com.messages.sms.textmessages-icon.png" onerror="this.src='https://play-lh.googleusercontent.com/XBPAgBTiWvwbuTheZrWm_zHZJfJntIGJWGNe3niTf0DYTaMnC55rBXl2eOXIUFnFvChMa5sqFbTA1683W4gJ'" loading="lazy" alt="Messages: Text SMS">
-                <span class="game-title">Messages: Text SMS</span>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.slotslot.slot/icon.png" alt="Vegas Slots 777 Casino Games" loading="lazy" />
+            <a href="explore/game/com.slotslot.slot.html" class="hover-mask">
+                <div class="mask-title">Vegas Slots 777 Casino Games</div>
+                <div class="mask-stars">★★★★★</div>
             </a>
-            <a class="game-card" href="explore/game/com.applabstudios.ai.mail.homescreen.inbox.html">
-                <img class="game-icon" src="assets/images/com.applabstudios.ai.mail.homescreen.inbox-icon.png" onerror="this.src='https://play-lh.googleusercontent.com/Gz3hDI57iGGsK2qPRcPl8HIZb7R1sEa81RM1cLVJ1LND5ArE0450aH8Rn8yBpaGCdjEfY1MsSa37zwU9aHQo'" loading="lazy" alt="Easy Mail - Email Launcher">
-                <span class="game-title">Easy Mail - Email Launcher</span>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.solitaire.patience.klondike.classic.card.games/icon.png" alt="Solitaire: Card Games" loading="lazy" />
+            <a href="explore/game/com.solitaire.patience.klondike.classic.card.games.html" class="hover-mask">
+                <div class="mask-title">Solitaire: Card Games</div>
+                <div class="mask-stars">★★★★★</div>
             </a>
-            <a class="game-card" href="explore/game/com.squareup.cash.html">
-                <img class="game-icon" src="assets/images/com.squareup.cash-icon.png" onerror="this.src='https://play-lh.googleusercontent.com/pBe5_NoQ0uojR_XLb_5f2mMxVOnFczommOo5Ho297TYnkqt6I26YM3X2cpKtowkLsxe27IdhP1gQz-Mq4OSQ'" loading="lazy" alt="Cash App">
-                <span class="game-title">Cash App</span>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.productmadness.hovmobile/icon.png" alt="Slots: Heart of Vegas Casino" loading="lazy" />
+            <a href="explore/game/com.productmadness.hovmobile.html" class="hover-mask">
+                <div class="mask-title">Slots: Heart of Vegas Casino</div>
+                <div class="mask-stars">★★★★★</div>
             </a>
-            <a class="game-card" href="explore/game/com.twitter.android.html">
-                <img class="game-icon" src="assets/images/com.twitter.android-icon.png" onerror="this.src='https://play-lh.googleusercontent.com/IsLsCD4eLC2CYvlkgTI6Z5TROj0BJIBgUF7BZ5eliTzyyTjqG_mbofeG4kw2s7oG_JZMSi5ErLz_qsDi169C8w'" loading="lazy" alt="X">
-                <span class="game-title">X</span>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.king.bubblewitch3/icon.png" alt="Bubble Witch 3 Saga" loading="lazy" />
+            <a href="explore/game/com.king.bubblewitch3.html" class="hover-mask">
+                <div class="mask-title">Bubble Witch 3 Saga</div>
+                <div class="mask-stars">★★★★★</div>
             </a>
-            <a class="game-card" href="explore/game/org.telegram.messenger.html">
-                <img class="game-icon" src="assets/images/org.telegram.messenger-icon.png" onerror="this.src='https://play-lh.googleusercontent.com/PyZ3akMGXPV0tKKirKNwfO--PSQW3FHR6rD_H9mAaukZ8LiHyYFuBLeU8UZ2ok6r5SP79-3prkfybWKh98AZAD0'" loading="lazy" alt="Telegram">
-                <span class="game-title">Telegram</span>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.jellybtn.boardkings/icon.png" alt="Board Kings: Board Dice Games" loading="lazy" />
+            <a href="explore/game/com.jellybtn.boardkings.html" class="hover-mask">
+                <div class="mask-title">Board Kings: Board Dice Games</div>
+                <div class="mask-stars">★★★★★</div>
             </a>
-            <a class="game-card" href="explore/game/com.ubercab.html">
-                <img class="game-icon" src="assets/images/com.ubercab-icon.png" onerror="this.src='https://play-lh.googleusercontent.com/OXQnDlRtPa5ha6KCnKPqVmxHYBP7tjrAa7PXGNRqcwDC_J03HVeuEKcKrkcIqnfOqsF5uy3uwWxIXR067QHsNQ'" loading="lazy" alt="Uber - Request a ride">
-                <span class="game-title">Uber - Request a ride</span>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.williamsinteractive.jackpotparty/icon.png" alt="Jackpot Party Casino Slots" loading="lazy" />
+            <a href="explore/game/com.williamsinteractive.jackpotparty.html" class="hover-mask">
+                <div class="mask-title">Jackpot Party Casino Slots</div>
+                <div class="mask-stars">★★★★★</div>
             </a>
-            <a class="game-card" href="explore/game/com.tubitv.html">
-                <img class="game-icon" src="assets/images/com.tubitv-icon.png" onerror="this.src='https://play-lh.googleusercontent.com/JcI8o5IHBMbNZ3tNE88Xnw8nwZYMZghNRTJ8JaiU_jXA4J2ShN1kybxOColfQW5UeRyykv3AFL6TcrmHGTRL9g'" loading="lazy" alt="Tubi: Free Movies & Live TV">
-                <span class="game-title">Tubi: Free Movies & Live TV</span>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.gamegos.adventure.bay.paradise.farm/icon.png" alt="Adventure Bay - Farm Games" loading="lazy" />
+            <a href="explore/game/com.gamegos.adventure.bay.paradise.farm.html" class="hover-mask">
+                <div class="mask-title">Adventure Bay - Farm Games</div>
+                <div class="mask-stars">★★★★★</div>
             </a>
-            <a class="game-card" href="explore/game/com.snapchat.android.html">
-                <img class="game-icon" src="assets/images/com.snapchat.android-icon.png" onerror="this.src='https://play-lh.googleusercontent.com/nOJWJoDAzuRSHmlFfpzHXAj8UbTJwk_JGYf0uAPTKPtiiIX_2Y7r5ATO1ZtxHRqaFTqfIDZ40PnBK4hukeJh'" loading="lazy" alt="Snapchat">
-                <span class="game-title">Snapchat</span>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.productmadness.fafafagold/icon.png" alt="Mighty Fu Casino Slots Games" loading="lazy" />
+            <a href="explore/game/com.productmadness.fafafagold.html" class="hover-mask">
+                <div class="mask-title">Mighty Fu Casino Slots Games</div>
+                <div class="mask-stars">★★★★★</div>
             </a>
-            <a class="game-card" href="explore/game/com.alibaba.aliexpresshd.html">
-                <img class="game-icon" src="assets/images/com.alibaba.aliexpresshd-icon.png" onerror="this.src='https://play-lh.googleusercontent.com/-26EaFSeFE-GPfgjA98H_ukuK2AEN0ZlMNB9lECGJDxUSG7G20emcnXaHrM5fL2d7mCi3O825iShQvn2J0ZY'" loading="lazy" alt="AliExpress - Shopping App">
-                <span class="game-title">AliExpress - Shopping App</span>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.haiku.adventure.escape.game.mystery.stories/icon.png" alt="Adventure Escape Mysteries" loading="lazy" />
+            <a href="explore/game/com.haiku.adventure.escape.game.mystery.stories.html" class="hover-mask">
+                <div class="mask-title">Adventure Escape Mysteries</div>
+                <div class="mask-stars">★★★★★</div>
             </a>
-            <a class="game-card" href="explore/game/com.messenger.sms.messages.html">
-                <img class="game-icon" src="assets/images/com.messenger.sms.messages-icon.png" onerror="this.src='https://play-lh.googleusercontent.com/IiXqdbWec64nJ6tfguEpwyTrdb3zQr238wzVrhLcDO5SPRzBELzgKEr53kFTq93R8qjgAo0PO4-Wv7y5lY0OAQ'" loading="lazy" alt="Messages - SMS Texting App">
-                <span class="game-title">Messages - SMS Texting App</span>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.dreamgames.royalmatch/icon.png" alt="Royal Match" loading="lazy" />
+            <a href="explore/game/com.dreamgames.royalmatch.html" class="hover-mask">
+                <div class="mask-title">Royal Match</div>
+                <div class="mask-stars">★★★★★</div>
             </a>
-            <a class="game-card" href="explore/game/com.walmart.android.html">
-                <img class="game-icon" src="assets/images/com.walmart.android-icon.png" onerror="this.src='https://play-lh.googleusercontent.com/uWXZHyYx_7M_aOFK_qINeboJGvmNgXSNRpCzjKyIWyHYcJbgZ0Ky0KlQBy5i1bmkphZdZ-lo9zc2De-KbQBKKA'" loading="lazy" alt="Walmart: Shopping & Savings">
-                <span class="game-title">Walmart: Shopping & Savings</span>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.king.candycrushjellysaga/icon.png" alt="Candy Crush Jelly Saga" loading="lazy" />
+            <a href="explore/game/com.king.candycrushjellysaga.html" class="hover-mask">
+                <div class="mask-title">Candy Crush Jelly Saga</div>
+                <div class="mask-stars">★★★★★</div>
             </a>
-            <a class="game-card" href="explore/game/com.netflix.mediaclient.html">
-                <img class="game-icon" src="assets/images/com.netflix.mediaclient-icon.png" onerror="this.src='https://play-lh.googleusercontent.com/fXVS45nukV1x9PYVSKHkCQK0QGCOishIvAOxIZS3sgRem8HS7l9l94_Ggj-WZPrTLePRdNYN4pp4SPAQL7oS0PU'" loading="lazy" alt="Netflix">
-                <span class="game-title">Netflix</span>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.fivebn.lt2.f2p/icon.png" alt="Legendary Tales 2" loading="lazy" />
+            <a href="explore/game/com.fivebn.lt2.f2p.html" class="hover-mask">
+                <div class="mask-title">Legendary Tales 2</div>
+                <div class="mask-stars">★★★★★</div>
             </a>
-            <a class="game-card" href="explore/game/com.depop.html">
-                <img class="game-icon" src="assets/images/com.depop-icon.png" onerror="this.src='https://play-lh.googleusercontent.com/HYpeXeDKSG0RDTvrjalnl7u10iGq6HssOpKtTaAKcJ_k3VXvVTgouVBvusUBzXWHDyiEXVoGNx3adVROGXjC8MU'" loading="lazy" alt="Depop - Buy & Sell Clothes">
-                <span class="game-title">Depop - Buy & Sell Clothes</span>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.king.candycrushsaga/icon.png" alt="Candy Crush Saga" loading="lazy" />
+            <a href="explore/game/com.king.candycrushsaga.html" class="hover-mask">
+                <div class="mask-title">Candy Crush Saga</div>
+                <div class="mask-stars">★★★★★</div>
             </a>
-            <a class="game-card" href="explore/game/com.shopify.arrive.html">
-                <img class="game-icon" src="assets/images/com.shopify.arrive-icon.png" onerror="this.src='https://play-lh.googleusercontent.com/Xz6JkG6gOYyB_Clk--dFNZa2eyu3T1bD8T1DQU7fe7jfBTpClPgjhBdrGe7MVFWTUBVaouhqzsHtYUEfOo4n'" loading="lazy" alt="Shop">
-                <span class="game-title">Shop</span>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.JindoBlu.OfflineGames/icon.png" alt="Offline Games - No Wifi Games" loading="lazy" />
+            <a href="explore/game/com.JindoBlu.OfflineGames.html" class="hover-mask">
+                <div class="mask-title">Offline Games - No Wifi Games</div>
+                <div class="mask-stars">★★★★★</div>
             </a>
-            <a class="game-card" href="explore/game/fr.vinted.html">
-                <img class="game-icon" src="assets/images/fr.vinted-icon.png" onerror="this.src='https://play-lh.googleusercontent.com/cw3VzDl2b0m8eXx3dXe6RdV6r8ztpzUp_DJk4PStqU2mbD1x1TfKSCNJZVd6wjABgy0Nz0BCb3NqMI2TkKlR3Q'" loading="lazy" alt="Vinted: Shop & sell pre-loved">
-                <span class="game-title">Vinted: Shop & sell pre-loved</span>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.generagames.resistance/icon.png" alt="Cover Fire: Offline Shooting" loading="lazy" />
+            <a href="explore/game/com.generagames.resistance.html" class="hover-mask">
+                <div class="mask-title">Cover Fire: Offline Shooting</div>
+                <div class="mask-stars">★★★★★</div>
             </a>
-            <a class="game-card" href="explore/game/com.zzkko.html">
-                <img class="game-icon" src="assets/images/com.zzkko-icon.png" onerror="this.src='https://play-lh.googleusercontent.com/M_c3ZcQ1dx3AlDSfFEL0S2KgYrmkvJz2gz6gMZaL0pSQS9yYfUOGAQJTfuXMvx0K5c46dh5TKauxuRbUlnxB7w'" loading="lazy" alt="SHEIN-Shopping Online">
-                <span class="game-title">SHEIN-Shopping Online</span>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.fungames.sniper3d/icon.png" alt="Sniper 3D：Gun Shooting Games" loading="lazy" />
+            <a href="explore/game/com.fungames.sniper3d.html" class="hover-mask">
+                <div class="mask-title">Sniper 3D：Gun Shooting Games</div>
+                <div class="mask-stars">★★★★★</div>
             </a>
-            <a class="game-card" href="explore/game/com.indeed.android.jobsearch.html">
-                <img class="game-icon" src="assets/images/com.indeed.android.jobsearch-icon.png" onerror="this.src='https://play-lh.googleusercontent.com/w6ltLlZlgLQYlmaMvbVyyttJAI3rXLjoz0i2pW9lltNTxRk9bQF7HmwkelKPWjVk_s6Et-VCFKhJzsyeC9xNNA'" loading="lazy" alt="Indeed Job Search">
-                <span class="game-title">Indeed Job Search</span>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.scopely.monopolygo/icon.png" alt="MONOPOLY GO!" loading="lazy" />
+            <a href="explore/game/com.scopely.monopolygo.html" class="hover-mask">
+                <div class="mask-title">MONOPOLY GO!</div>
+                <div class="mask-stars">★★★★★</div>
             </a>
-            <a class="game-card" href="explore/game/com.discord.html">
-                <img class="game-icon" src="assets/images/com.discord-icon.png" onerror="this.src='https://play-lh.googleusercontent.com/w2DdjDHGSj3DQElQQM0_J3PsNsALS-WD3CBeH0aXOYceR-F3aT02gFonhoFzz-Tc9ec8Dx9cLqh48-tzIFcP'" loading="lazy" alt="Discord - Talk, Play, Hang Out">
-                <span class="game-title">Discord - Talk, Play, Hang Out</span>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/puzzle.merge.adventure/icon.png" alt="Merge Adventure: Travel Games" loading="lazy" />
+            <a href="explore/game/puzzle.merge.adventure.html" class="hover-mask">
+                <div class="mask-title">Merge Adventure: Travel Games</div>
+                <div class="mask-stars">★★★★★</div>
             </a>
-            <a class="game-card" href="explore/game/com.espublishing.pdfreader.viewer.editor.html">
-                <img class="game-icon" src="assets/images/com.espublishing.pdfreader.viewer.editor-icon.png" onerror="this.src='https://play-lh.googleusercontent.com/YO63aQciYGsbKAyIjWeMucLLhBqN-XqqMofeHFlYw2US2JirSCthF2KlG9ShxYF5Wn6qi1fON1SDQlW6hRCOdQ'" loading="lazy" alt="PDF Reader: View All PDFs">
-                <span class="game-title">PDF Reader: View All PDFs</span>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.king.candycrushsodasaga/icon.png" alt="Candy Crush Soda Saga" loading="lazy" />
+            <a href="explore/game/com.king.candycrushsodasaga.html" class="hover-mask">
+                <div class="mask-title">Candy Crush Soda Saga</div>
+                <div class="mask-stars">★★★★★</div>
             </a>
-            <a class="game-card" href="explore/game/com.tmobile.tuesdays.html">
-                <img class="game-icon" src="assets/images/com.tmobile.tuesdays-icon.png" onerror="this.src='https://play-lh.googleusercontent.com/as_pmN0nNcb0HqFYGp2NMPL3U7ZW2mZWmBqqR3JOhEld7GHRd7NZrK8FFk6E_r2Q9dHTM2JttyAs9su4DlQPikY'" loading="lazy" alt="T-Life">
-                <span class="game-title">T-Life</span>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.wonderpeople.megahitpoker.global/icon.png" alt="Mega Hit Poker: Texas Holdem" loading="lazy" />
+            <a href="explore/game/com.wonderpeople.megahitpoker.global.html" class="hover-mask">
+                <div class="mask-title">Mega Hit Poker: Texas Holdem</div>
+                <div class="mask-stars">★★★★★</div>
             </a>
-            <a class="game-card" href="explore/game/com.netshort.abroad.html">
-                <img class="game-icon" src="assets/images/com.netshort.abroad-icon.png" onerror="this.src='https://play-lh.googleusercontent.com/abBbNR-5zthxSLW7YYJTHBB-0gNcb6iJbX7CIGz3p99RBMaabM_ljYlSFuiHS33DTQ3PI2Ye7b2qzuRDmTQ6BzQ'" loading="lazy" alt="NetShort - Popular Dramas & TV">
-                <span class="game-title">NetShort - Popular Dramas & TV</span>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.mobilityware.spider/icon.png" alt="Spider Solitaire: Card Games" loading="lazy" />
+            <a href="explore/game/com.mobilityware.spider.html" class="hover-mask">
+                <div class="mask-title">Spider Solitaire: Card Games</div>
+                <div class="mask-stars">★★★★★</div>
             </a>
-            <a class="game-card" href="explore/game/com.life360.android.safetymapd.html">
-                <img class="game-icon" src="assets/images/com.life360.android.safetymapd-icon.png" onerror="this.src='https://play-lh.googleusercontent.com/nQsrQf5cd6IeIhFTvVFjez12UiB1QTYYyX1UiVA448XkK--5jQYBhDuiMHtBOWrVnoldLTlnUN1x3AbCt4vflg'" loading="lazy" alt="Life360: Family Safety & GPS">
-                <span class="game-title">Life360: Family Safety & GPS</span>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.tinyco.potter/icon.png" alt="Harry Potter: Hogwarts Mystery" loading="lazy" />
+            <a href="explore/game/com.tinyco.potter.html" class="hover-mask">
+                <div class="mask-title">Harry Potter: Hogwarts Mystery</div>
+                <div class="mask-stars">★★★★★</div>
             </a>
-            <a class="game-card" href="explore/game/com.enflick.android.TextNow.html">
-                <img class="game-icon" src="assets/images/com.enflick.android.TextNow-icon.png" onerror="this.src='https://play-lh.googleusercontent.com/dhPBaff_7shT1IF0fV0P1R0psaYknV9ppvu1IyNrj3f1uXET9F56C_7w5OvfT16nKdKIGJG8Q86QI0YsjU6tIA'" loading="lazy" alt="TextNow: Call + Text Unlimited">
-                <span class="game-title">TextNow: Call + Text Unlimited</span>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.kiloo.subwaysurf/icon.png" alt="Subway Surfers" loading="lazy" />
+            <a href="explore/game/com.kiloo.subwaysurf.html" class="hover-mask">
+                <div class="mask-title">Subway Surfers</div>
+                <div class="mask-stars">★★★★★</div>
             </a>
-            <a class="game-card" href="explore/game/com.newreading.goodreels.html">
-                <img class="game-icon" src="assets/images/com.newreading.goodreels-icon.png" onerror="this.src='https://play-lh.googleusercontent.com/KRRusfufUnwu85IplvKDA87UugyOqoqQExymB6aahV6Rh_yN3vwIkgbC3qmol0Wdt9cP2yTDFeetrvWA8Gyj'" loading="lazy" alt="GoodShort - Short Dramas Hub">
-                <span class="game-title">GoodShort - Short Dramas Hub</span>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.pieyel.scrabble/icon.png" alt="Scrabble® GO – Fun with Words!" loading="lazy" />
+            <a href="explore/game/com.pieyel.scrabble.html" class="hover-mask">
+                <div class="mask-title">Scrabble® GO – Fun with Words!</div>
+                <div class="mask-stars">★★★★★</div>
             </a>
-            <a class="game-card" href="explore/game/com.facebook.orca.html">
-                <img class="game-icon" src="assets/images/com.facebook.orca-icon.png" onerror="this.src='https://play-lh.googleusercontent.com/cuRpiGqvAMkcbAOibD-AKCBagAunUkspQUWC_jVZF2Hob_ODdmkefnZeqkofW1idFQHhgZgnLIjsqT-2v7JKBw'" loading="lazy" alt="Messenger">
-                <span class="game-title">Messenger</span>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.marmalade.gol2/icon.png" alt="The Game of Life 2" loading="lazy" />
+            <a href="explore/game/com.marmalade.gol2.html" class="hover-mask">
+                <div class="mask-title">The Game of Life 2</div>
+                <div class="mask-stars">★★★★★</div>
             </a>
-            <a class="game-card" href="explore/game/com.instagram.barcelona.html">
-                <img class="game-icon" src="assets/images/com.instagram.barcelona-icon.png" onerror="this.src='https://play-lh.googleusercontent.com/6PzXaP0KaRU4DifAfsXKbWNVA3JPrP9uklvEh5EDhzPRdPfHV4tzszhAavQa4bq0YGdbnphBucz9vEUXiu1Ebg'" loading="lazy" alt="Threads">
-                <span class="game-title">Threads</span>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.gameberry.sorry.card.board.game/icon.png" alt="Sorry! World Online Board game" loading="lazy" />
+            <a href="explore/game/com.gameberry.sorry.card.board.game.html" class="hover-mask">
+                <div class="mask-title">Sorry! World Online Board game</div>
+                <div class="mask-stars">★★★★★</div>
             </a>
-            <a class="game-card" href="explore/game/com.allbrowser.searchforbrowser.html">
-                <img class="game-icon" src="assets/images/com.allbrowser.searchforbrowser-icon.png" onerror="this.src='https://play-lh.googleusercontent.com/FZk4PmEy_H5Tb1d0xN-Fd-kTwv43Cx_Lf_PuL6A3j1c7au0xFV_BSLAtbXoWn8iNQ9fS0Wr_iZXMheOIGRRyFG4'" loading="lazy" alt="All Browser">
-                <span class="game-title">All Browser</span>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/games.lightheart.mrautofire/icon.png" alt="Mr Autofire" loading="lazy" />
+            <a href="explore/game/games.lightheart.mrautofire.html" class="hover-mask">
+                <div class="mask-title">Mr Autofire</div>
+                <div class="mask-stars">★★★★★</div>
             </a>
-            <a class="game-card" href="explore/game/com.amazon.avod.thirdpartyclient.html">
-                <img class="game-icon" src="assets/images/com.amazon.avod.thirdpartyclient-icon.png" onerror="this.src='https://play-lh.googleusercontent.com/NnoDzfxkvlsAvU8jzoPeK8aaxbcU2sEH_btwgMQ2xI88_qtrNGQuf1vlFkxSiQODyKVFZ3-s71sU1MHyV-vc9Q'" loading="lazy" alt="Prime Video">
-                <span class="game-title">Prime Video</span>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.productmadness.cashmancasino/icon.png" alt="Cashman Casino Slots Games" loading="lazy" />
+            <a href="explore/game/com.productmadness.cashmancasino.html" class="hover-mask">
+                <div class="mask-title">Cashman Casino Slots Games</div>
+                <div class="mask-stars">★★★★★</div>
             </a>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.playtika.caesarscasino/icon.png" alt="Caesars Slots: Casino Games" loading="lazy" />
+            <a href="explore/game/com.playtika.caesarscasino.html" class="hover-mask">
+                <div class="mask-title">Caesars Slots: Casino Games</div>
+                <div class="mask-stars">★★★★★</div>
+            </a>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.samfinaco.paradise/icon.png" alt="Bermuda Adventures Farm Island" loading="lazy" />
+            <a href="explore/game/com.samfinaco.paradise.html" class="hover-mask">
+                <div class="mask-title">Bermuda Adventures Farm Island</div>
+                <div class="mask-stars">★★★★☆</div>
+            </a>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.FrameOfMindGames.ChessCraft/icon.png" alt="ChessCraft" loading="lazy" />
+            <a href="explore/game/com.FrameOfMindGames.ChessCraft.html" class="hover-mask">
+                <div class="mask-title">ChessCraft</div>
+                <div class="mask-stars">★★★★☆</div>
+            </a>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.fingersoft.hcr2/icon.png" alt="Hill Climb Racing 2" loading="lazy" />
+            <a href="explore/game/com.fingersoft.hcr2.html" class="hover-mask">
+                <div class="mask-title">Hill Climb Racing 2</div>
+                <div class="mask-stars">★★★★☆</div>
+            </a>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.miniclip.carrom/icon.png" alt="Carrom Pool: Disc Game" loading="lazy" />
+            <a href="explore/game/com.miniclip.carrom.html" class="hover-mask">
+                <div class="mask-title">Carrom Pool: Disc Game</div>
+                <div class="mask-stars">★★★★☆</div>
+            </a>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.halfbrick.fruitninjafree/icon.png" alt="Fruit Ninja®" loading="lazy" />
+            <a href="explore/game/com.halfbrick.fruitninjafree.html" class="hover-mask">
+                <div class="mask-title">Fruit Ninja®</div>
+                <div class="mask-stars">★★★★☆</div>
+            </a>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.dts.freefiremax/icon.png" alt="Free Fire MAX" loading="lazy" />
+            <a href="explore/game/com.dts.freefiremax.html" class="hover-mask">
+                <div class="mask-title">Free Fire MAX</div>
+                <div class="mask-stars">★★★★☆</div>
+            </a>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.yodo1.crossyroad/icon.png" alt="Crossy Road" loading="lazy" />
+            <a href="explore/game/com.yodo1.crossyroad.html" class="hover-mask">
+                <div class="mask-title">Crossy Road</div>
+                <div class="mask-stars">★★★★☆</div>
+            </a>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.ballytechnologies.f88/icon.png" alt="88 Fortunes™ Casino Slot Games" loading="lazy" />
+            <a href="explore/game/com.ballytechnologies.f88.html" class="hover-mask">
+                <div class="mask-title">88 Fortunes™ Casino Slot Games</div>
+                <div class="mask-stars">★★★★☆</div>
+            </a>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.sng.gin.online/icon.png" alt="Gin Rummy - Online Card Games" loading="lazy" />
+            <a href="explore/game/com.sng.gin.online.html" class="hover-mask">
+                <div class="mask-title">Gin Rummy - Online Card Games</div>
+                <div class="mask-stars">★★★★☆</div>
+            </a>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.teenpatti.hd.gold/icon.png" alt="Teen Patti Gold:3 Patti Rummy" loading="lazy" />
+            <a href="explore/game/com.teenpatti.hd.gold.html" class="hover-mask">
+                <div class="mask-title">Teen Patti Gold:3 Patti Rummy</div>
+                <div class="mask-stars">★★★★☆</div>
+            </a>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.Earthkwak.Platformer/icon.png" alt="Super Bear Adventure" loading="lazy" />
+            <a href="explore/game/com.Earthkwak.Platformer.html" class="hover-mask">
+                <div class="mask-title">Super Bear Adventure</div>
+                <div class="mask-stars">★★★★☆</div>
+            </a>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.robtopx.geometryjumplite/icon.png" alt="Geometry Dash Lite" loading="lazy" />
+            <a href="explore/game/com.robtopx.geometryjumplite.html" class="hover-mask">
+                <div class="mask-title">Geometry Dash Lite</div>
+                <div class="mask-stars">★★★★☆</div>
+            </a>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/air.com.pixelfederation.diggy/icon.png" alt="Diggy's Adventure Puzzle Game" loading="lazy" />
+            <a href="explore/game/air.com.pixelfederation.diggy.html" class="hover-mask">
+                <div class="mask-title">Diggy's Adventure Puzzle Game</div>
+                <div class="mask-stars">★★★★☆</div>
+            </a>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.matteljv.uno/icon.png" alt="UNO!™" loading="lazy" />
+            <a href="explore/game/com.matteljv.uno.html" class="hover-mask">
+                <div class="mask-title">UNO!™</div>
+                <div class="mask-stars">★★★★☆</div>
+            </a>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.criticalforceentertainment.criticalops/icon.png" alt="Critical Ops: Multiplayer FPS" loading="lazy" />
+            <a href="explore/game/com.criticalforceentertainment.criticalops.html" class="hover-mask">
+                <div class="mask-title">Critical Ops: Multiplayer FPS</div>
+                <div class="mask-stars">★★★★☆</div>
+            </a>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.tencent.ig/icon.png" alt="PUBG MOBILE" loading="lazy" />
+            <a href="explore/game/com.tencent.ig.html" class="hover-mask">
+                <div class="mask-title">PUBG MOBILE</div>
+                <div class="mask-stars">★★★★☆</div>
+            </a>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.dts.freefireth/icon.png" alt="Free Fire: 9th Anniversary" loading="lazy" />
+            <a href="explore/game/com.dts.freefireth.html" class="hover-mask">
+                <div class="mask-title">Free Fire: 9th Anniversary</div>
+                <div class="mask-stars">★★★★☆</div>
+            </a>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/org.pbskids.gamesapp/icon.png" alt="PBS KIDS Games" loading="lazy" />
+            <a href="explore/game/org.pbskids.gamesapp.html" class="hover-mask">
+                <div class="mask-title">PBS KIDS Games</div>
+                <div class="mask-stars">★★★★☆</div>
+            </a>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.playgendary.bowmasters/icon.png" alt="Bowmasters: Archery Shooting" loading="lazy" />
+            <a href="explore/game/com.playgendary.bowmasters.html" class="hover-mask">
+                <div class="mask-title">Bowmasters: Archery Shooting</div>
+                <div class="mask-stars">★★★★☆</div>
+            </a>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.wildspike.wormszone/icon.png" alt="Worms Zone .io - Hungry Snake" loading="lazy" />
+            <a href="explore/game/com.wildspike.wormszone.html" class="hover-mask">
+                <div class="mask-title">Worms Zone .io - Hungry Snake</div>
+                <div class="mask-stars">★★★★☆</div>
+            </a>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.gameduell.romme.treff.kartenspiel/icon.png" alt="Rummy - Fun & Friends" loading="lazy" />
+            <a href="explore/game/com.gameduell.romme.treff.kartenspiel.html" class="hover-mask">
+                <div class="mask-title">Rummy - Fun & Friends</div>
+                <div class="mask-stars">★★★★☆</div>
+            </a>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.elogames.app/icon.png" alt="elo - board games for two" loading="lazy" />
+            <a href="explore/game/com.elogames.app.html" class="hover-mask">
+                <div class="mask-title">elo - board games for two</div>
+                <div class="mask-stars">★★★★☆</div>
+            </a>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.supercell.brawlstars/icon.png" alt="Brawl Stars" loading="lazy" />
+            <a href="explore/game/com.supercell.brawlstars.html" class="hover-mask">
+                <div class="mask-title">Brawl Stars</div>
+                <div class="mask-stars">★★★★☆</div>
+            </a>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.roblox.client/icon.png" alt="Roblox" loading="lazy" />
+            <a href="explore/game/com.roblox.client.html" class="hover-mask">
+                <div class="mask-title">Roblox</div>
+                <div class="mask-stars">★★★★☆</div>
+            </a>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.halfbrick.fruitninjax/icon.png" alt="Fruit Ninja 2 Fun Action Games" loading="lazy" />
+            <a href="explore/game/com.halfbrick.fruitninjax.html" class="hover-mask">
+                <div class="mask-title">Fruit Ninja 2 Fun Action Games</div>
+                <div class="mask-stars">★★★★☆</div>
+            </a>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.ludo.king/icon.png" alt="Ludo King®" loading="lazy" />
+            <a href="explore/game/com.ludo.king.html" class="hover-mask">
+                <div class="mask-title">Ludo King®</div>
+                <div class="mask-stars">★★★★☆</div>
+            </a>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.wizards.mtga/icon.png" alt="Magic: The Gathering Arena" loading="lazy" />
+            <a href="explore/game/com.wizards.mtga.html" class="hover-mask">
+                <div class="mask-title">Magic: The Gathering Arena</div>
+                <div class="mask-stars">★★★★☆</div>
+            </a>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.blizzard.wtcg.hearthstone/icon.png" alt="Hearthstone" loading="lazy" />
+            <a href="explore/game/com.blizzard.wtcg.hearthstone.html" class="hover-mask">
+                <div class="mask-title">Hearthstone</div>
+                <div class="mask-stars">★★★★☆</div>
+            </a>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.joycity.god/icon.png" alt="Game of Dice: Board&Card&Anime" loading="lazy" />
+            <a href="explore/game/com.joycity.god.html" class="hover-mask">
+                <div class="mask-title">Game of Dice: Board&Card&Anime</div>
+                <div class="mask-stars">★★★★☆</div>
+            </a>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.playgendary.kickthebuddy/icon.png" alt="Kick the Buddy－Fun Action Game" loading="lazy" />
+            <a href="explore/game/com.playgendary.kickthebuddy.html" class="hover-mask">
+                <div class="mask-title">Kick the Buddy－Fun Action Game</div>
+                <div class="mask-stars">★★★★☆</div>
+            </a>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.marmalade.monopoly/icon.png" alt="MONOPOLY" loading="lazy" />
+            <a href="explore/game/com.marmalade.monopoly.html" class="hover-mask">
+                <div class="mask-title">MONOPOLY</div>
+                <div class="mask-stars">★★★★☆</div>
+            </a>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.rovio.baba/icon.png" alt="Angry Birds 2" loading="lazy" />
+            <a href="explore/game/com.rovio.baba.html" class="hover-mask">
+                <div class="mask-title">Angry Birds 2</div>
+                <div class="mask-stars">★★★★☆</div>
+            </a>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.imangi.templerun2/icon.png" alt="Temple Run 2: Endless Escape" loading="lazy" />
+            <a href="explore/game/com.imangi.templerun2.html" class="hover-mask">
+                <div class="mask-title">Temple Run 2: Endless Escape</div>
+                <div class="mask-stars">★★★★☆</div>
+            </a>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.microsoft.microsoftsolitairecollection/icon.png" alt="Microsoft Solitaire Collection" loading="lazy" />
+            <a href="explore/game/com.microsoft.microsoftsolitairecollection.html" class="hover-mask">
+                <div class="mask-title">Microsoft Solitaire Collection</div>
+                <div class="mask-stars">★★★★☆</div>
+            </a>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.epicgames.fortnite/icon.png" alt="Fortnite" loading="lazy" />
+            <a href="explore/game/com.epicgames.fortnite.html" class="hover-mask">
+                <div class="mask-title">Fortnite</div>
+                <div class="mask-stars">★★★★☆</div>
+            </a>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.nintendo.zara/icon.png" alt="Super Mario Run" loading="lazy" />
+            <a href="explore/game/com.nintendo.zara.html" class="hover-mask">
+                <div class="mask-title">Super Mario Run</div>
+                <div class="mask-stars">★★★★☆</div>
+            </a>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.ea.game.pvzfree_row/icon.png" alt="Plants vs. Zombies™" loading="lazy" />
+            <a href="explore/game/com.ea.game.pvzfree_row.html" class="hover-mask">
+                <div class="mask-title">Plants vs. Zombies™</div>
+                <div class="mask-stars">★★★★☆</div>
+            </a>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.nianticlabs.pokemongo/icon.png" alt="Pokémon GO" loading="lazy" />
+            <a href="explore/game/com.nianticlabs.pokemongo.html" class="hover-mask">
+                <div class="mask-title">Pokémon GO</div>
+                <div class="mask-stars">★★★★☆</div>
+            </a>
+        </div>
+        <div class="grid-item standard-col">
+            <img src="assets/images/com.herogames.gplay.crisisactionsa/icon.png" alt="Crisis Action: 7th Anniversary" loading="lazy" />
+            <a href="explore/game/com.herogames.gplay.crisisactionsa.html" class="hover-mask">
+                <div class="mask-title">Crisis Action: 7th Anniversary</div>
+                <div class="mask-stars">★★★☆☆</div>
+            </a>
+        </div>
+        </div>
     </main>
     <footer>
-        <span>&copy; 2026 GameMatrix (FavNinja.com)</span>
-        <div class="footer-links">
-            <a href="pages/contact.html">Contact</a>
-            <a href="pages/privacy.html">Privacy Policy</a>
-            <a href="pages/terms.html">Terms of Services</a>
-        </div>
+        <span>&copy; 2026 FavNinja.com</span>
+        <a href="#">Contact</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms Of Services</a>
     </footer>
 </body>
 </html>
