@@ -362,9 +362,9 @@ function renderIndexHtml(gamesList) {
     </main>
     <footer>
     <span>&copy; ${currentYear} GameMatrix (FavNinja.com)</span>
-    <a href="/pages/contact.html" onclick="window.location.href='/pages/contact.html';">Contact</a>
-    <a href="/pages/privacy.html" onclick="window.location.href='/pages/privacy.html';">Privacy Policy</a>
-    <a href="/pages/terms.html" onclick="window.location.href='/pages/terms.html';">Terms Of Services</a>
+    <a href="pages/contact.html" onclick="window.location.href='pages/contact.html';">Contact</a>
+    <a href="pages/privacy.html" onclick="window.location.href='pages/privacy.html';">Privacy Policy</a>
+    <a href="pages/terms.html" onclick="window.location.href='pages/terms.html';">Terms Of Services</a>
 </footer>
 </body>
 </html>`;
@@ -677,9 +677,9 @@ function renderDetailHtml(game, seo, top10, totalGameList, appleStoreUrl) {
     
     <footer>
     <span>&copy; ${currentYear} GameMatrix (FavNinja.com)</span>
-    <a href="/pages/contact.html" onclick="window.location.href='/pages/contact.html';">Contact</a>
-    <a href="/pages/privacy.html" onclick="window.location.href='/pages/privacy.html';">Privacy Policy</a>
-    <a href="/pages/terms.html" onclick="window.location.href='/pages/terms.html';">Terms Of Services</a>
+    <a href="../../pages/contact.html" onclick="window.location.href='../../pages/contact.html';">Contact</a> | 
+    <a href="../../pages/privacy.html" onclick="window.location.href='../../pages/privacy.html';">Privacy Policy</a> | 
+    <a href="../../pages/terms.html" onclick="window.location.href='../../pages/terms.html';">Terms of Services</a>
 </footer>
 </body>
 </html>`;
